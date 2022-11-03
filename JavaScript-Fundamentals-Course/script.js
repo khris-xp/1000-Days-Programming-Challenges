@@ -1,13 +1,4 @@
-console.log("Hello World!");
-
-document.getElementById("text").innerHTML = "Khris Bharmmano";
-document.write("Hello Document Write");
-
-window.alert("Hello Alert!");
-
-// First Comment
-
-
-/* 
-    Many Comments
-*/
+var price1 = 10;
+var price2 = 20;
+var total = price1 + price2;
+console.log(total);
