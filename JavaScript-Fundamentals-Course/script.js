@@ -1,4 +1,6 @@
-var price1 = 10;
-var price2 = 20;
-var total = price1 + price2;
-console.log(total);
+var firstName = "Khris";
+var lastName = "Bharmmano";
+
+var my_name = `${firstName} ${lastName}`;
+
+console.log(my_name)
