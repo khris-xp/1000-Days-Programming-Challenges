@@ -1,5 +1,3 @@
-function myFunction (value1, value2) {
-    return value1 + value2
+const myBackground = (color) => {
+    document.body.style.backgroundColor = color;
 }
-
-console.log(myFunction(5,2))
