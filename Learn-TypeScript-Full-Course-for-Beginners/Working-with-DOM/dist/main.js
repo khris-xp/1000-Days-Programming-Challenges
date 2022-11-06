@@ -1,7 +1,7 @@
-var popularTag = ['Dragon', 'Coffee'];
-var dragonsTag = [];
-var username = "Khris";
-var pageName = "1";
-var errorMessage = null;
-var user = null;
-var SomeProp;
+// let page: any = "1";
+// let pageNumber = page as string;
+var someElement = document.querySelector('.foo');
+someElement.addEventListener('blur', function (event) {
+    var target = event.target;
+    console.log("Event", target.value);
+});
