@@ -1,3 +1,9 @@
+interface Person {
+    name: string
+    age: number
+}
+
+
 const Play = () => {
 
     const name: string = "Khris Bharmmano";
@@ -6,7 +12,19 @@ const Play = () => {
     const logPersonInfo = (personName: string, personAge: number) => {
         return `Name : ${personName} , Age : ${personAge}`
     }
-    console.log(logPersonInfo(name,age));
+    console.log(logPersonInfo(name, age));
+
+    const person: Person = {
+        name: "John",
+        age: 34
+    }
+
+    const logPersonInfo2 = (personName: string, personAge: number) => {
+        const info = `Name : ${personName} , Age: ${personAge}`
+        return info
+    }
+    console.log(logPersonInfo2(person.name, person.age));
+
 }
 
 export default Play;
