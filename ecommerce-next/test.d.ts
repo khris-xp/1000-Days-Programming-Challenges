@@ -1,3 +1,0 @@
-interface Person {
-    name: string
-}
