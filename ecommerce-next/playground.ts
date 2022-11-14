@@ -1,6 +1,16 @@
-interface Person {
+// interface Person {
+//     name: string
+//     age: number
+// }
+
+class Person {
     name: string
     age: number
+
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
 }
 
 interface logPersonInfoFun {
@@ -21,16 +31,18 @@ const Play = () => {
     }
     console.log(logPersonInfo(name, age));
 
-    const person: Person = {
-        name: "John",
-        age: 34
-    }
+    // Class
 
-    const logPersonInfo2 = (personName: string, personAge: number) => {
-        const info = `Name : ${personName} , Age: ${personAge}`
+    // const person: Person = {
+    //     name: "John",
+    //     age: 34
+    // }
+
+    const logPersonInfo2 = (person: Person) => {
+        const info = `Name : ${person.name} , Age: ${person.age}`
         return info
     }
-    console.log(logPersonInfo2(person.name, person.age));
+    console.log(logPersonInfo2(new Person("Michale",22)));
 
 }
 
