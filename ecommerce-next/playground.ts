@@ -1,13 +1,32 @@
+interface Person {
+    name: string
+    age: number
+}
+
+interface BusinessPerson extends Person {
+    salary: number
+}
+
+interface AcademicPerson extends Person {
+    publications: string[]
+}
+
 export default function Play() {
-
-    const random = Math.random() > 0.5 ? "hello" : [1, 2]
-
-    if (typeof random === 'string') {
-        const upper = random.toUpperCase()
-    }
-    else {
-        console.log(random);
+    const person: BusinessPerson = {
+        name: "Khris",
+        age: 18,
+        salary: 14000
     }
 
-    console.log(random);
+    const person2: AcademicPerson = {
+        name : "John",
+        age: 34,
+        publications: ["1","2","3"]
+    }
+
+    const logPerson = (person: Person) => {
+        console.log(person)
+    }
+    logPerson(person);
+    logPerson(person2)
 }
