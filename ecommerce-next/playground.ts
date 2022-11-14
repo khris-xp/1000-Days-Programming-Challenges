@@ -3,6 +3,10 @@ interface Person {
     age: number
 }
 
+interface logPersonInfoFun {
+    (name: string, age: number): string
+}
+
 // Type Allias
 type Data = string;
 
@@ -12,7 +16,7 @@ const Play = () => {
     const name: Data = "Khris Bharmmano";
     const age: number = 18;
 
-    const logPersonInfo = (personName: string, personAge: number) => {
+    const logPersonInfo: logPersonInfoFun = (personName: string, personAge: number): string => {
         return `Name : ${personName} , Age : ${personAge}`
     }
     console.log(logPersonInfo(name, age));
