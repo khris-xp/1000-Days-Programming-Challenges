@@ -3,10 +3,13 @@ interface Person {
     age: number
 }
 
+// Type Allias
+type Data = string;
+
 
 const Play = () => {
 
-    const name: string = "Khris Bharmmano";
+    const name: Data = "Khris Bharmmano";
     const age: number = 18;
 
     const logPersonInfo = (personName: string, personAge: number) => {
