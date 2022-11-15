@@ -1,18 +1,40 @@
 type RaceCar = {
     name: string
-    maxSpeed: number
+    maxSpeed: 200
+    team: string
 }
 
 type CityCar = {
     name: string
+    maxSpeed: 100
     space: string
 }
+
+type Car = RaceCar | CityCar
 
 
 export default function Play() {
 
-    const logCarInfo = (car: RaceCar | CityCar) => {
-        console.log(car.name);
+    const car: RaceCar = {
+        name: "Race Car",
+        maxSpeed: 200,
+        team: "Ferari"
     }
 
+    const logCarInfo = (car: Car) => {
+        console.log(car.name);
+
+        switch (car.maxSpeed) {
+            case 200:
+                console.log(car.team);
+                break;
+            case 100:
+                console.log(car)
+                break;
+            default:
+                console.log(car)
+        }
+    }
+
+    logCarInfo(car)
 }
