@@ -22,7 +22,7 @@ export default function Play() {
     }
 
     const logCarInfo = (car: Car) => {
-        console.log(car.name);
+        console.log((car as CityCar).maxSpeed);
 
         switch (car.maxSpeed) {
             case 200:
