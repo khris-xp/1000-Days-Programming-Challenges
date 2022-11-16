@@ -62,8 +62,11 @@ export default function Play() {
 
     }
 
-    const printInfo = (someObject: { [key: string]: string | number | boolean}) => {
+    const printInfo = (someObject: { [key: string]: unknown }) => {
 
+        if (typeof someObject.age === "string") {
+            someObject.age.toUpperCase()
+        }
     }
 
     printInfo({
