@@ -1,3 +1,5 @@
+import { info } from "console"
+
 interface Person {
     kind: "business" | "academic" | "othertypes"
     name: string
@@ -59,6 +61,17 @@ export default function Play() {
         age: 23
 
     }
+
+    const printInfo = (someObject: { [key: string]: string | number | boolean}) => {
+
+    }
+
+    printInfo({
+        age: 18,
+        isMarried: false,
+        name: "Khris Bharmmano",
+        // records: {}
+    })
 
     const logPerson = (human: Human) => {
         if (human.kind === "academic") {
