@@ -1,3 +1,22 @@
+interface Person {
+    kind: "business" | "academic" | "othertypes"
+    name: string
+    age: number
+}
+
+interface BusinessPerson extends Person {
+    kind: "business"
+    salary: number
+}
+
+interface AcademicPerson extends Person {
+    kind: "academic"
+    publications: string[]
+}
+
+type Human = BusinessPerson | AcademicPerson | { kind: "othertypes", special: string }
+
+
 type RaceCar = {
     name: string
     maxSpeed: 200
@@ -19,6 +38,16 @@ export default function Play() {
         name: "Race Car",
         maxSpeed: 200,
         team: "Ferari"
+    }
+
+    const logPerson = (human: Human) => {
+        if (human.kind === "academic") {
+            console.log(human)
+        } else if (human.kind === "business") {
+            console.log(human)
+        } else {
+            console.log(human)
+        }
     }
 
     const logCarInfo = (car: Car) => {
