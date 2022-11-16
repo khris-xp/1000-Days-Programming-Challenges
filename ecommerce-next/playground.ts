@@ -44,66 +44,18 @@ type SUVCar = {
 
 type Car = RaceCar | CityCar | SUVCar
 
+type TestType = () => any
+type TestType2 = () => void
+
 
 export default function Play() {
-
-    const car: RaceCar = {
-        name: "Race Car",
-        maxSpeed: 200,
-        team: "Ferari"
+    const func1 = (x: TestType) => {
+        const result = x();
+        result()
     }
 
-    const person: Person = {
-        prop1: "",
-        prop2: 2,
-        name: "",
-        kind: "academic",
-        age: 23
-
-    }
-
-    const printInfo = (someObject: { [key: string]: unknown }) => {
-
-        if (typeof someObject.age === "string") {
-            someObject.age.toUpperCase()
-        }
-    }
-
-    printInfo({
-        age: 18,
-        isMarried: false,
-        name: "Khris Bharmmano",
-        // records: {}
-    })
-
-    const logPerson = (human: Human) => {
-        if (human.kind === "academic") {
-            console.log(human)
-        } else if (human.kind === "business") {
-            console.log(human)
-        } else {
-            console.log(human)
-        }
-    }
-
-    const logCarInfo = (car: Car) => {
-        console.log((car as CityCar).maxSpeed);
-
-        switch (car.maxSpeed) {
-            case 200:
-                console.log(car.team);
-                break;
-            case 100:
-                console.log(car)
-                break;
-            case 150:
-                console.log(car.isCarbonFree)
-                break;
-            default:
-                const _never: never = car
-                return _never
-        }
-    }
-
-    logCarInfo(car)
+    // const func2 = (x: TestType2) => {
+    //     const result = x();
+    //     result()
+    // }
 }
