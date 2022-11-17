@@ -1,7 +1,6 @@
-import { info } from "console"
 
 interface Person {
-    kind: "business" | "academic" | "othertypes"
+    kind: "business" | "academic" | "others"
     name: string
     age: number
 }
@@ -16,46 +15,10 @@ interface AcademicPerson extends Person {
     publications: string[]
 }
 
-interface Person {
-    prop1: string
-    prop2: number
-}
-
-type Human = BusinessPerson | AcademicPerson | { kind: "othertypes", special: string }
-
-
-type RaceCar = {
-    name: string
-    maxSpeed: 200
-    team: string
-}
-
-type CityCar = {
-    name: string
-    maxSpeed: 100
-    space: string
-}
-
-type SUVCar = {
-    name: string
-    maxSpeed: 150
-    isCarbonFree: boolean
-}
-
-type Car = RaceCar | CityCar | SUVCar
-
-type TestType = () => any
-type TestType2 = () => void
-
-
 export default function Play() {
-    const func1 = (x: TestType) => {
-        const result = x();
-        result()
+    const iterate = (items: Array<string>) => {
+        return items.forEach((items) => console.log(items.toUpperCase()))
     }
 
-    // const func2 = (x: TestType2) => {
-    //     const result = x();
-    //     result()
-    // }
+    iterate(["johns", "khris", "roger"])
 }
