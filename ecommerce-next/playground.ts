@@ -12,14 +12,16 @@ interface PostGraduateStudent extends Person {
     age: number
 }
 
-interface StudentInfo<T extends Student = Student> {
+type StudentInfo<T extends any = Student> = T extends Student ? {
     data: T
     grades: number[]
-}
+} : string
+
+type Car = { engine: string }
 
 export default function Play() {
 
-    const logStudentInfo = (info: StudentInfo<PostGraduateStudent>) => {
+    const logStudentInfo = (info: StudentInfo<Student>) => {
         console.log(info)
     }
 
