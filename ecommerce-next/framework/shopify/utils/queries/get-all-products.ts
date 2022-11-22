@@ -1,4 +1,9 @@
-const productConnect = `      edges {
+const productConnect = `
+    pageInfo {
+        hasNextPage
+        hasPreviousPage
+    }
+    edges {
     node {
       id
       title
@@ -31,10 +36,6 @@ const productConnect = `      edges {
 
 const getAllProductQuery = `query getAllProducts($first: Int = 250) {
     products(first: $first) {
-      pageInfo {
-      hasNextPage
-      hasPreviousPage
-    }
         ${productConnect}
     }
   }
