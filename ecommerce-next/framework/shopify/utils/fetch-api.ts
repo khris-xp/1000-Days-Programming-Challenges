@@ -1,8 +1,12 @@
-type FetchParams = {
+type FetcherParams = {
     query: string
 }
 
-const fetchAPI = async ({ query }: FetchParams) => {
+type FetcherResults<T> = { data: T }
+
+const fetchAPI = async <T>({
+    query }: FetcherParams
+): Promise<FetcherResults<T>> => {
     const url = "http://localhost:4000/graphql";
 
     const res = await fetch(url, {
