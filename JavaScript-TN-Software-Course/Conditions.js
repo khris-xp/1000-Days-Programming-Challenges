@@ -1,3 +1,4 @@
+// Example 1
 let score = 65;
 
 if (score >= 80) {
@@ -9,3 +10,5 @@ else if (score >= 70) {
 else {
     console.log("Grade C");
 }
+
+// Output 1 = Grade C
