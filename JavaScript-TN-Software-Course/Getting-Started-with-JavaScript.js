@@ -1,1 +1,4 @@
-console.log("Hello World!"); // Output --> Hello World!
+// Example 1
+console.log("Hello World!");
+
+// Output 1 = Hello World!
