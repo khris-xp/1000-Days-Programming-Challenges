@@ -8,7 +8,19 @@ const PORT: number = 5000;
 app.use(express.json());
 
 app.get('/', (req: Request, res: Response) => {
-    return res.send(`Hello World!`);
+    return res.send('Hello World!');
+})
+
+app.get('/json', (req: Request, res: Response) => {
+    return res.json({
+        'success': true,
+        'msg': 'Hello World!',
+        'name': 'Khris'
+    });
+})
+
+app.get('/api/redirect', (req: Request, res: Response) => {
+    return res.redirect('https://example.com/');
 })
 
 app.post('/api/data', (req: Request, res: Response) => {
