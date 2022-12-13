@@ -19,6 +19,17 @@ app.get('/json', (req: Request, res: Response) => {
     });
 })
 
+app.route('/api/books')
+    .get((req: Request, res: Response) => {
+        return res.send('You make a GET Request');
+    }).post((req: Request, res: Response) => {
+        return res.send('You make a POST Request');
+    }).put((req: Request, res: Response) => {
+        return res.send('You make a PUT Requset');
+    }).delete((req: Request, res: Response) => {
+        return res.send('You make a DELETE Request');
+    })
+
 app.get('/api/redirect', (req: Request, res: Response) => {
     return res.redirect('https://example.com/');
 })
