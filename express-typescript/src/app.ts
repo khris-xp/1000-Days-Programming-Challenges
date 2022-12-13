@@ -55,6 +55,11 @@ app.get(/abcd/, (req: Request, res: Response) => {
     return res.send('abcd');
 })
 
+app.get('/api/books/:booksID', (req: Request, res: Response) => {
+    console.log(req.params);
+    return res.send(req.params);
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on PORT : ${PORT}`)
 })
