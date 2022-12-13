@@ -43,6 +43,18 @@ app.all('/api/all', (req: Request, res: Response) => {
     return res.sendStatus(200);
 })
 
+app.get('/health', (req: Request, res: Response) => {
+    return res.sendStatus(200);
+})
+
+app.get('/ab*cd', (req: Request, res: Response) => {
+    return res.send('ab*cd');
+})
+
+app.get(/abcd/, (req: Request, res: Response) => {
+    return res.send('abcd');
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on PORT : ${PORT}`)
 })
