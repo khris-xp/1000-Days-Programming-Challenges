@@ -69,3 +69,12 @@ See examples projects:
 
 ### Author
 
+Author : Khris Bharmmano
+
+Facebook : [Khris Bharmmano](https://web.facebook.com/khris.bharmmano)
+
+Instagram : [khris_xp](https://www.instagram.com/khris_xp/)
+
+Github : [khris_xp](https://github.com/khris-xp)
+
+Other Projects : [My Repositories](https://github.com/khris-xp?tab=repositories)
