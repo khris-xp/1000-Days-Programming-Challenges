@@ -9,7 +9,7 @@ Addition(1, 2)
 
 // Exercise
 
-function getPyramidArea(length, width, height) {
+function getPyramidVolume(length, width, height) {
     let baseArea = length * width;
     let pyramidVolume = (1 / 3) * baseArea * height;
     console.log(pyramidVolume);
