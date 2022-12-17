@@ -1,7 +1,13 @@
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello world!");
-        System.out.println("Hello World! from Khris Bharmmano");
+       int Height = 100;
+       int Length = 20;
+       int Sum;
+
+       Sum = Height + Length;
+       System.out.println("Height : " + Height);
+       System.out.println("Length : " + Length);
+       System.out.println("Sum : " + Sum);
     }
 }
