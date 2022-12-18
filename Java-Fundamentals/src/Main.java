@@ -1,13 +1,15 @@
 public class Main {
     public static void main(String[] args) {
+        double latitude = 13.5555;
+        double longitude = 100.2222;
+        String str1 = "12";
+        int num1 = Integer.parseInt(str1);
 
-       int Height = 100;
-       int Length = 20;
-       int Sum;
+        int num2 = 12;
+        String str2 = String.valueOf(num2);
 
-       Sum = Height + Length;
-       System.out.println("Height : " + Height);
-       System.out.println("Length : " + Length);
-       System.out.println("Sum : " + Sum);
+//        System.out.println("( " + latitude + " , " + longitude + " )");
+        System.out.println(num1 + 5);
+        System.out.println(str2 + num2);
     }
 }
