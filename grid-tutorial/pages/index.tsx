@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
         {/* Items 1 */}
         <div className="lg:col-[1_/_3] lg:row-[1_/_3] col-[1_/_5]">
-          <Image src={Items4} height={1000} width={1000} alt="items1" className="w-full h-full object-cover" />
+          <Image src={Items1} height={1000} width={1000} alt="items1" className="w-full h-full object-cover" />
         </div>
 
         {/* Items 2 */}
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
         {/* Items 4 */}
         <div className="grid lg:grid-cols-[1fr_1fr] lg:col-[1_/_3] lg:row-[3_/_4] grid-cols-[1fr_1fr] col-[1_/_5] row-[4_/_5]">
           <div>
-            <Image src={Items1} height={500} width={500} alt="items4" className="w-full h-full object-cover" />
+            <Image src={Items4} height={500} width={500} alt="items4" className="w-full h-full object-cover" />
           </div>
           <div className="flex justify-center items-center sm:p-[3rem] p-[1rem]">
             <div>
