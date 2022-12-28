@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 const Home = () => {
   return (
     <div>
-      <h1 className='jumbotron square text-center'>Hello World!</h1>
+      <h1 className='jumbotron square text-center'>Online Education Marketplace</h1>
     </div>
   )
 }
