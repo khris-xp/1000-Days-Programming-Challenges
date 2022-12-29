@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const fs = require('fs');
 
 require('dotenv').config();
 
@@ -15,9 +16,7 @@ app.use((req, res, next) => {
 })
 
 // Route
-app.get('/', (req, res) => {
-    res.send(`Hello from Server`);
-})
+fs.readdirSync('./routes').map((r) => app.use('/api', require(`./routes/${r}`)));
 
 // PORT
 PORT = process.env.PORT || 8000;
