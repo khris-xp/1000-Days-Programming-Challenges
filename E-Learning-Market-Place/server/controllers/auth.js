@@ -1,5 +1,6 @@
 const register = (req, res) => {
-    res.send('Register Auth Pages');
+    res.json({ msg: req.body });
+    res.json('Register user response from controller');
 }
 
 module.exports = register
