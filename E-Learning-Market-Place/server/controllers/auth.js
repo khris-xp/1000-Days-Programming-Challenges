@@ -1,5 +1,6 @@
 const Users = require('../models/user');
 const { hashPassword, comparsePassword } = require('../utils/auth');
+const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
     try {
@@ -33,4 +34,33 @@ const register = async (req, res) => {
     }
 };
 
-module.exports = register;
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // let userExist = await Users.findOne({ email }).exec();
+        const user = await Users.findOne({ email }).exec();
+        if (!email) {
+            return res.status(400).send("No User Found");
+        }
+
+        const match = comparsePassword(password, user.password);
+
+        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: '7d'
+        })
+
+        user.password = undefined;
+        res.cookie("token", token, {
+            httpOnly: true
+        });
+
+        res.json(user);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send("Error. Try Again.");
+    }
+}
+
+module.exports = { register, login };
