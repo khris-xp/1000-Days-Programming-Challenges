@@ -2,11 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { LoadingOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 
 const Register = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [name, setName] = useState("user");
+    const [email, setEmail] = useState("user01@gmail.com");
+    const [password, setPassword] = useState("1234567");
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
@@ -63,6 +64,12 @@ const Register = () => {
                         {loading ? <LoadingOutlined spin /> : "Submit"}
                     </button>
                 </form>
+                <p className="text-center p-4">
+                    Already Registered ? {}
+                    <Link href="/login">
+                        Login
+                    </Link>
+                </p>
             </div>
         </>
     );
