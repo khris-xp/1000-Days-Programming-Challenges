@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { LoadingOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { Context } from "../context";
+import { useRouter } from 'next/router';
 
 const Login = () => {
     const [email, setEmail] = useState("user01@gmail.com");
@@ -11,6 +12,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const { state, dispatch } = useContext(Context);
+    const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,10 +24,16 @@ const Login = () => {
             });
             toast.success('Login Success');
             setLoading(false);
+
+            // Local Storage
             dispatch({
                 type: "LOGIN",
                 payload: data
             });
+            window.localStorage.setItem("user", JSON.stringify(data));
+
+            // Redirect
+            router.push('/');
         } catch (err) {
             toast.error(err.response.data);
             setLoading(false);
@@ -34,7 +42,7 @@ const Login = () => {
 
     return (
         <>
-            <h1 className="jumbotron text-center bg-primary square">Register</h1>
+            <h1 className="jumbotron text-center bg-primary square">Login</h1>
 
             <div className="container col-md-4 offset-md-4 pb-5">
                 <form onSubmit={handleSubmit}>
