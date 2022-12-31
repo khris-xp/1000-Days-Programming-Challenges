@@ -15,14 +15,14 @@ const rootReducer = (state, action) => {
         default:
             return state;
     }
-}
+};
 
 const Provider = ({ children }) => {
-    const { state, dispatch } = useReducer(rootReducer, initialState);
+    const [state, dispatch] = useReducer(rootReducer, initialState);
 
     return (
         <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
-    )
-}
+    );
+};
 
-export default { Provider, Context }
+export { Context, Provider };
