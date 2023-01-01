@@ -7,7 +7,6 @@ const initialState = {
 }
 
 const Context = createContext();
-const router = useRouter();
 
 const rootReducer = (state, action) => {
     switch (action.type) {
@@ -22,6 +21,7 @@ const rootReducer = (state, action) => {
 
 const Provider = ({ children }) => {
     const [state, dispatch] = useReducer(rootReducer, initialState);
+    const router = useRouter();
 
     useEffect(() => {
         dispatch({
@@ -43,7 +43,7 @@ const Provider = ({ children }) => {
                             console.log("/401 Error > logout.");
                             dispatch({ type: "LOGOUT" });
                             window.localStorage.removeItem("user");
-                            router.push();
+                            router.push('/');
                         })
                         .catch((err) => {
                             console.log("AXIOS INTERCEPTOR ERR", err);
@@ -51,8 +51,18 @@ const Provider = ({ children }) => {
                         })
                 })
             }
+            return Promise.reject(error);
         }
     )
+
+    useEffect(() => {
+        const getCsrfToken = async () => {
+            const { data } = await axios.get('/api/csrf-token');
+            console.log("CSRF TOKEN", data);
+            axios.defaults.headers["X-CSRF-TOKEN"] = data.getCsrfToken;
+        }
+        getCsrfToken();
+    }, [])
 
     return (
         <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>

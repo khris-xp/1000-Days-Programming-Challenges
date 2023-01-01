@@ -3,10 +3,14 @@ const cors = require('cors');
 const morgan = require('morgan');
 const fs = require('fs');
 const mongoose = require('mongoose');
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
 const app = express();
+
+const csrfProtection = csrf({ cookie: true });
 
 // middleware
 app.use(cors());
@@ -16,16 +20,16 @@ app.use((req, res, next) => {
     console.log("This is middleware function");
     next();
 })
-
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cookieParser());
 
 // Route
 fs.readdirSync('./routes').map((r) => app.use('/api', require(`./routes/${r}`)));
+
+// CSRF Protection
+app.use(csrfProtection);
+app.get('/api/csrf-token', (req, res) => {
+    res.json({ csrfToken: req.csrfToken() });
+})
 
 // Connect to Database
 const URL = process.env.MONGODB_URL;
