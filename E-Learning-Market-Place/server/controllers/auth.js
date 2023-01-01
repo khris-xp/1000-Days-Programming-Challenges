@@ -72,4 +72,14 @@ const logout = async (req, res) => {
     }
 }
 
-module.exports = { register, login, logout };
+const currentUser = async (req, res) => {
+    try {
+        const { user } = await Users.findById(req.user._id).select("-password").exec();
+        console.log("CURRENT USER", user);
+        return res.json({ user });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+module.exports = { register, login, logout, currentUser };
