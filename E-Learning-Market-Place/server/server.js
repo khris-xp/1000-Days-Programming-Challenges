@@ -16,10 +16,6 @@ const csrfProtection = csrf({ cookie: true });
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
-app.use((req, res, next) => {
-    console.log("This is middleware function");
-    next();
-})
 app.use(cookieParser());
 
 // Route
