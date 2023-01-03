@@ -1,7 +1,7 @@
 import { React, useContext } from 'react';
 import { Menu, Icon } from 'antd';
 import Link from 'next/link';
-import { HomeTwoTone, UserAddOutlined, LoginOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { HomeTwoTone, UserAddOutlined, LoginOutlined, LogoutOutlined, UserOutlined, DashboardOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { Context } from "../context";
 import { useRouter } from 'next/router';
@@ -49,9 +49,14 @@ const Navbar = () => {
             )}
             {user !== null && (
                 <Menu.SubMenu style={{ marginLeft: 'auto' }} title={user && user.name} icon={<UserOutlined twoToneColor="#000" />}>
-                    <Menu.Item icon={<LogoutOutlined twoToneColor="#000" />} onClick={logout}>
-                        Logout
-                    </Menu.Item>
+                    <Menu.ItemGroup>
+                        <Menu.Item icon={<DashboardOutlined twoToneColor="#000" />}>
+                            <Link href="/user">Dashboard</Link>
+                        </Menu.Item>
+                        <Menu.Item icon={<LogoutOutlined twoToneColor="#000" />} onClick={logout}>
+                            Logout
+                        </Menu.Item>
+                    </Menu.ItemGroup>
                 </Menu.SubMenu>
             )}
         </Menu>
