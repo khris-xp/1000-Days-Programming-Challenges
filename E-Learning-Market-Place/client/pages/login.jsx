@@ -75,10 +75,15 @@ const Login = () => {
                         {loading ? <LoadingOutlined spin /> : "Submit"}
                     </button>
                 </form>
-                <p className="text-center p-4">
+                <p className="text-center pt-4">
                     Not yet Registred ? { }
                     <Link href="/register">
                         Register
+                    </Link>
+                </p>
+                <p className="text-center">
+                    <Link href="/forgot-password" className="text-danger">
+                        Forgot Password
                     </Link>
                 </p>
             </div>
