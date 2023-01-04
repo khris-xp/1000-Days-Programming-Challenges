@@ -82,4 +82,9 @@ const currentUser = async (req, res) => {
     }
 };
 
-module.exports = { register, login, logout, currentUser };
+const sendTestEmail = async (req, res) => {
+    console.log('send email on using aws');
+    res.json({ 'ok': true });
+}
+
+module.exports = { register, login, logout, currentUser, sendTestEmail };
