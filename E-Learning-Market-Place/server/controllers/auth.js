@@ -55,6 +55,9 @@ const login = async (req, res) => {
         }
 
         const match = await comparePassword(password, user.password);
+        if (!match) {
+            return res.status(400).send("Wrong Password");
+        }
 
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
             expiresIn: '7d'
@@ -76,7 +79,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     try {
         res.clearCookie("token");
-        res.json({ msg: "Signout Success" });
+        res.json({ msg: "Logout Success" });
     } catch (err) {
         console.log(err);
         return res.status(400).send("Error. Try Again.");
@@ -94,8 +97,6 @@ const currentUser = async (req, res) => {
 };
 
 const sendTestEmail = async (req, res) => {
-    // console.log('send email on using aws');
-    // res.json({ 'ok': true });
 
     const params = {
         Source: process.env.EMAIL_FROM,
@@ -186,4 +187,26 @@ const forgotPassword = async (req, res) => {
     }
 }
 
-module.exports = { register, login, logout, currentUser, sendTestEmail, forgotPassword };
+const resetPassword = async (req, res) => {
+    try {
+        const { email, code, newPassword } = req.body;
+
+        const hashedPassword = await hashPassword(newPassword);
+        const user = Users.findOneAndUpdate(
+            {
+                email,
+                passwordResetCode: code,
+            },
+            {
+                password: hashedPassword,
+                passwordResetCode: "",
+            }).exec();
+
+        res.json({ 'ok': true });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send("Error Please try again.");
+    }
+}
+
+module.exports = { register, login, logout, currentUser, sendTestEmail, forgotPassword, resetPassword };

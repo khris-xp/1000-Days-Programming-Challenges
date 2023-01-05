@@ -44,19 +44,20 @@ const forgotPassword = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const { data } = await axios.post('/api/forgot-password', {
+            const { data } = await axios.post('/api/reset-password', {
                 email,
                 code,
                 newPassword
             })
-            console.log(data);
             setEmail('');
             setCode('');
             setNewPassword('');
-            toast.success('Reset Password ')
+            setLoading(false);
+            toast.success('Reset Password Success.');
         } catch (err) {
+            setLoading(false);
             console.log(err);
-            toast.error('Error Please try again');
+            toast.error(err.response.data);
         }
     }
 
@@ -71,7 +72,7 @@ const forgotPassword = () => {
                     {success && (
                         <>
                             <input className="form-control mb-4 p-2" type="text" value={code} onChange={(e) => setCode(e.target.value)} placeholder="Enter secret code ..."></input>
-                            <input className="form-control mb-4 p-2" type="text" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Enter new password ..."></input>
+                            <input className="form-control mb-4 p-2" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Enter new password ..."></input>
                         </>)}
 
                     <button type="submit" className="btn btn-primary btn-block p-2" disabled={loading || !email}>{loading ? <LoadingOutlined spin /> : "Submit"}</button>
