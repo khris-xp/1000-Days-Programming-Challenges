@@ -2,6 +2,7 @@ const Users = require('../models/user');
 const { hashPassword, comparePassword } = require('../utils/auth');
 const jwt = require('jsonwebtoken');
 const AWS = require('aws-sdk');
+var { nanoid: ID } = require("nanoid");
 
 const awsConfig = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -133,4 +134,56 @@ const sendTestEmail = async (req, res) => {
         })
 }
 
-module.exports = { register, login, logout, currentUser, sendTestEmail };
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const shortCode = ID(6).toUpperCase();
+        const user = await Users.findOneAndUpdate({ email }, { passwordResetCode: shortCode });
+
+        if (!user) {
+            return res.status(400).send("User not found!");
+        }
+
+        const params = {
+            Source: process.env.EMAIL_FROM,
+            Destination: {
+                ToAddresses: ['khrisbharmmano121@gmail.com']
+            },
+            ReplyToAddresses: [process.env.EMAIL_FROM],
+            Message: {
+                Body: {
+                    Html: {
+                        Charset: "UTF-8",
+                        Data: `
+                            <html>
+                                <h1>Reset Password link</h1>
+                                <p>Use this code to reset your password</p>
+                                <h2 style="color:red">${shortCode}</h2>
+                                <i>E-Learning Marketplace</i>
+                            </html>
+                        `
+                    }
+                },
+                Subject: {
+                    Charset: "UTF-8",
+                    Data: "Reset Password",
+                }
+            }
+        };
+
+        const emailSent = SES.sendEmail(params).promise();
+        emailSent
+            .then((data) => {
+                console.log(data)
+                res.json({ 'ok': true });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+module.exports = { register, login, logout, currentUser, sendTestEmail, forgotPassword };
