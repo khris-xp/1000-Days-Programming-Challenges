@@ -1,17 +1,13 @@
 public class Main {
     public static void main(String[] args) {
         // Create Object
-        Employee e1 = new Employee();
-        e1.setId("12345");
-        e1.setName("Khris Bharmmano");
-        e1.setSalary(30000.0);
-        System.out.println(e1.getName());
+        Employee e1 = new Employee("1", "Khris Bharmmano", 18000.0);
+        e1.displayEmployee();
+        Employee e2 = new Employee("2", "John Doe", 20000.0);
+        e2.displayEmployee();
 
-        // Create Object
-        Employee e2 = new Employee();
-        e2.setId("67890");
-        e2.setName("John Doe");
-        e2.setSalary(20000.0);
-        System.out.println(e2.getSalary());
+        // Exercise
+        System.out.println("Name of Employee 1 : " + e1.getName());
+        System.out.println("Salary of Employee 2 : " + e2.getSalary());
     }
 }
