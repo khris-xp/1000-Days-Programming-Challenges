@@ -39,7 +39,7 @@ const Login = () => {
             window.localStorage.setItem("user", JSON.stringify(data));
 
             // Redirect
-            router.push('/');
+            router.push('/user');
         } catch (err) {
             toast.error(err.response.data);
             setLoading(false);
