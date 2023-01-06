@@ -1,7 +1,7 @@
 import { React, useContext } from 'react';
 import { Menu, Icon } from 'antd';
 import Link from 'next/link';
-import { HomeTwoTone, UserAddOutlined, LoginOutlined, LogoutOutlined, UserOutlined, DashboardOutlined } from '@ant-design/icons';
+import { HomeTwoTone, UserAddOutlined, LoginOutlined, LogoutOutlined, UserOutlined, DashboardOutlined, TeamOutlined, BookOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { Context } from "../context";
 import { useRouter } from 'next/router';
@@ -36,6 +36,16 @@ const Navbar = () => {
             <Menu.Item key="/" icon={<HomeTwoTone twoToneColor="#000" />} onClick={(e) => setCurrent(e.key)}>
                 <Link href="/">Home</Link>
             </Menu.Item>
+
+            {user && user.role && user.role.includes("Instructor") ? (
+                <Menu.Item key="/instructor/course/create" onClick={(e) => setCurrent(e.key)} icon={<BookOutlined twoToneColor="#000" />}>
+                    <Link href="/instructor/course/create">Create Course</Link>
+                </Menu.Item>
+            ) : (
+                <Menu.Item key="/user/become-instructor" onClick={(e) => setCurrent(e.key)} icon={<TeamOutlined twoToneColor="#000" />}>
+                    <Link href="/user/become-instructor">Become Instructor</Link>
+                </Menu.Item>
+            )}
 
             {user === null && (
                 <>
