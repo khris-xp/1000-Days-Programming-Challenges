@@ -1,5 +1,14 @@
 <template>
   <h1>{{title}}</h1>
+
+   <div>
+        <input type="text" v-model="newTask" placeholder="New Task"/>
+      </div>
+
+      <div v-if="newTask.length > 0">
+        <h3>New Task Preview</h3>
+        <p>{{newTask}}</p>
+      </div>
   <ul>
     <li v-for="task in tasks" :key="task.id">
       {{task.id}} . {{task.name}}
@@ -27,7 +36,8 @@ export default {
         {id : 1 , name : "Coding" , finished : true},
         {id : 2, name : "Do a VUE JS" , finished: false},
         {id : 3, name : "Do a To Do List App" , finished : false}
-      ]
+      ],
+      newTask: '',
     }
   }
 }
