@@ -9,6 +9,9 @@
         <h3>New Task Preview</h3>
         <p>{{newTask}}</p>
       </div>
+
+      <button @click="addTask" :disabled="newTask.length < 1">Add Task</button>
+
   <ul>
     <li v-for="task in tasks" :key="task.id">
       {{task.id}} . {{task.name}}
@@ -47,11 +50,10 @@ export default {
       }
 
       this.tasks.push({
-        id: this.tasks.id + 1,
+        id: this.tasks.length + 1,
         name: this.newTask,
         finished : false
-      })
-
+      });
     }
   }
 }
