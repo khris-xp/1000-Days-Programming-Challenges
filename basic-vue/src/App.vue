@@ -21,7 +21,7 @@
       {{index + 1}} . {{task.name}}
 
       <div v-if="task.finished">
-        <button>Delete Task</button>
+        <button @click="deleteTask(task.id)">Delete Task</button>
       </div>
       <div v-else-if="task.edit">
         <button>Edit Task</button>
@@ -63,6 +63,11 @@ export default {
     },
     finishTask(task) {
       task.finished = !task.finished;
+    },
+    deleteTask(taskID) {
+      this.tasks = this.tasks.filter((task) => {
+        return task.id !== taskID
+      })
     }
   },
   computed: {
