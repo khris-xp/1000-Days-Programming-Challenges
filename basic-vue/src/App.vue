@@ -39,6 +39,20 @@ export default {
       ],
       newTask: '',
     }
+  },
+  methods: {
+    addTask() {
+      if(this.newTask.length < 1) {
+        return;
+      }
+
+      this.tasks.push({
+        id: this.tasks.id + 1,
+        name: this.newTask,
+        finished : false
+      })
+
+    }
   }
 }
 </script>
