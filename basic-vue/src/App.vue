@@ -6,7 +6,7 @@
   <h3>You have {{allTask}} {{allTask > 1 ? "tasks" : "task"}} at the momment</h3>
 
   <div>
-    <input type="text" v-model="newTask" placeholder="New Task"/>
+    <input type="text" v-model="newTask" placeholder="New Task" @keyup.enter="addTask"/>
   </div>
 
   <div v-if="newTask.length > 0">
@@ -17,7 +17,7 @@
   <button @click="addTask" :disabled="newTask.length < 1">Add Task</button>
 
   <ul>
-    <li v-for="(task , index) in lastest" :key="task.id" @click="finishTask(task)" :class="{strikeout: task.finished}">
+    <li v-for="(task , index) in lastest" :key="task.id" @click="finishTask(task)" :class="{strikeout: task.finished}" >
       {{index + 1}} . {{task.name}}
 
       <div v-if="task.finished">
@@ -26,9 +26,7 @@
       <div v-else-if="task.edit">
         <button>Edit Task</button>
       </div>
-      <div v-else>
-        <p>No Button</p>
-      </div>
+      <div v-else></div>
     </li>
   </ul>
 </template>
