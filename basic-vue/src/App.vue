@@ -17,7 +17,7 @@
   <button @click="addTask" :disabled="newTask.length < 1">Add Task</button>
 
   <ul>
-    <li v-for="(task , index) in lastest" :key="task.id">
+    <li v-for="(task , index) in lastest" :key="task.id" @click="finishTask(task)" :class="{strikeout: task.finished}">
       {{index + 1}} . {{task.name}}
 
       <div v-if="task.finished">
@@ -60,6 +60,9 @@ export default {
         name: this.newTask,
         finished : false
       });
+    },
+    finishTask(task) {
+      task.finished = !task.finished;
     }
   },
   computed: {
@@ -74,6 +77,10 @@ export default {
 </script>
 
 <style>
+
+.strikeout {
+  text-decoration: line-through;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
