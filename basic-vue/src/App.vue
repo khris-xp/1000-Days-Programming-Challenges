@@ -1,6 +1,8 @@
 <template>
   <h1>{{title}}</h1>
 
+  <img :src="logoURL" :alt="logoCaption" width="200" height="200" />
+
   <h3>You have {{allTask}} {{allTask > 1 ? "tasks" : "task"}} at the momment</h3>
 
   <div>
@@ -43,6 +45,8 @@ export default {
         {id : 3, name : "Do a To Do List App" , finished : false}
       ],
       newTask: '',
+      logoURL: 'https://gifdb.com/images/high/animated-programmer-guy-coding-790a0bs8e8thpisg.gif',
+      logoCation : 'Learn VUE Project'
     }
   },
   methods: {
