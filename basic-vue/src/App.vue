@@ -1,20 +1,22 @@
 <template>
   <h1>{{title}}</h1>
 
-   <div>
-        <input type="text" v-model="newTask" placeholder="New Task"/>
-      </div>
+  <h3>You have {{allTask}} {{allTask > 1 ? "tasks" : "task"}} at the momment</h3>
 
-      <div v-if="newTask.length > 0">
-        <h3>New Task Preview</h3>
-        <p>{{newTask}}</p>
-      </div>
+  <div>
+    <input type="text" v-model="newTask" placeholder="New Task"/>
+  </div>
 
-      <button @click="addTask" :disabled="newTask.length < 1">Add Task</button>
+  <div v-if="newTask.length > 0">
+    <h3>New Task Preview</h3>
+    <p>{{newTask}}</p>
+  </div>
+
+  <button @click="addTask" :disabled="newTask.length < 1">Add Task</button>
 
   <ul>
-    <li v-for="task in tasks" :key="task.id">
-      {{task.id}} . {{task.name}}
+    <li v-for="(task , index) in lastest" :key="task.id">
+      {{index + 1}} . {{task.name}}
 
       <div v-if="task.finished">
         <button>Delete Task</button>
@@ -54,6 +56,14 @@ export default {
         name: this.newTask,
         finished : false
       });
+    }
+  },
+  computed: {
+    allTask() {
+      return this.tasks.length;
+    },
+    lastest() {
+      return [...this.tasks].reverse();
     }
   }
 }
