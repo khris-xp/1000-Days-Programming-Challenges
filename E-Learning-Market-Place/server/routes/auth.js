@@ -1,12 +1,20 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
 
 // controllers
-const { register, login, logout, currentUser, sendTestEmail, forgotPassword, resetPassword } = require('../controllers/auth');
+const {
+  register,
+  login,
+  logout,
+  currentUser,
+  sendTestEmail,
+  forgotPassword,
+  resetPassword,
+} = require("../controllers/auth");
 
 // middleware
-const requireSignin = require('../middleware');
+const requireSignin = require("../middleware");
 
 router.post("/register", register);
 router.post("/login", login);

@@ -1,4 +1,4 @@
-const expressJwt = require('express-jwt');
+const expressJwt = require("express-jwt");
 
 const requireSignin = expressJwt({
   getToken: (req, res) => req.cookies.token,

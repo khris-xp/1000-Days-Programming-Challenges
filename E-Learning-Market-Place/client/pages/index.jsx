@@ -1,12 +1,14 @@
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
+import { Inter } from "@next/font/google";
+import styles from "../styles/Home.module.css";
 
 const Home = () => {
   return (
     <div>
-      <h1 className='jumbotron square text-center'>Online Education Marketplace</h1>
+      <h1 className="jumbotron square text-center">
+        Online Education Marketplace
+      </h1>
     </div>
-  )
-}
+  );
+};
 
 export default Home;

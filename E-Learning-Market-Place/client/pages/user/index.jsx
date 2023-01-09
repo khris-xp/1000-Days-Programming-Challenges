@@ -4,16 +4,16 @@ import axios from "axios";
 import UserRoute from "../../components/routes/UserRoute";
 
 const UserIndex = () => {
-    // state
-    const { state: { user } } = useContext(Context);
+  // state
+  const {
+    state: { user },
+  } = useContext(Context);
 
-    return (
-        <UserRoute>
-            <h1 className="jumbotron text-center square">
-                User Dashboard
-            </h1>
-        </UserRoute>
-    );
+  return (
+    <UserRoute>
+      <h1 className="jumbotron text-center square">User Dashboard</h1>
+    </UserRoute>
+  );
 };
 
 export default UserIndex;
