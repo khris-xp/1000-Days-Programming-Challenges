@@ -48,7 +48,6 @@ const getAccountStatus = async (req, res) => {
         },
         { new: true }
       )
-        .select("-password")
         .exec();
       res.json(statusUpdated);
     }
