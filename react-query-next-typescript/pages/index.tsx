@@ -1,7 +1,7 @@
 import ArticleCollection from "../components/ArticleCollection";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Article } from "../interfaces/article";
+import { ArticleI } from "../interfaces/article";
 
 const fetcher = async () => {
   const { data } = await axios.get("https://dev.to/api/articles");
@@ -14,7 +14,7 @@ const Home = () => {
     error,
     isError,
     isLoading,
-  } = useQuery<Article[], Error>("articles", fetcher);
+  } = useQuery<ArticleI[], Error>("articles", fetcher);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -25,7 +25,7 @@ const Home = () => {
   }
   return (
     <div className="max-w-2xl mx-auto mt-4">
-      <ArticleCollection collection={articles} />
+      <ArticleCollection collection={articles as ArticleI[]} />
     </div>
   );
 };
