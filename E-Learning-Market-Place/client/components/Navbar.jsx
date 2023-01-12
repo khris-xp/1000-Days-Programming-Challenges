@@ -39,7 +39,7 @@ const Navbar = () => {
   };
 
   return (
-    <Menu mode="horizontal" selectedKeys={[current]}>
+    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2">
       <Menu.Item
         key="/"
         icon={<HomeTwoTone twoToneColor="#000" />}
@@ -102,6 +102,17 @@ const Navbar = () => {
             </Menu.Item>
           </Menu.ItemGroup>
         </Menu.SubMenu>
+      )}
+
+      {user && user.role && user.role.includes("Instructor") && (
+        <Menu.Item
+          key="/instructor"
+          onClick={(e) => setCurrent(e.key)}
+          icon={<TeamOutlined />}
+          className="float-right"
+        >
+          <Link href="/instructor">Instructor</Link>
+        </Menu.Item>
       )}
     </Menu>
   );
