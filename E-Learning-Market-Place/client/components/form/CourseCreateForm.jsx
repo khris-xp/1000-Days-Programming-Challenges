@@ -1,5 +1,5 @@
 import { React } from "react";
-import { Select, Button } from "antd";
+import { Select, Button, Avatar } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
 
 const Option = Select;
@@ -10,6 +10,7 @@ const CourseCreateForm = ({
   handleImage,
   values,
   setValues,
+  preview,
 }) => {
   const children = [];
 
@@ -96,6 +97,11 @@ const CourseCreateForm = ({
             </label>
           </div>
         </div>
+        {preview && (
+          <div className="col-md-6">
+            <Avatar width={200} src={preview} />
+          </div>
+        )}
       </div>
 
       <div className="row pt-3 pb-3">
