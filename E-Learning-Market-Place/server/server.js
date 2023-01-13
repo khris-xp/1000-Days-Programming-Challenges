@@ -30,6 +30,7 @@ app.get("/api/csrf-token", (req, res) => {
 });
 
 // Connect to Database
+mongoose.set("strictQuery", false);
 const URL = process.env.MONGODB_URL;
 mongoose.connect(
   URL,
