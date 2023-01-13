@@ -11,6 +11,7 @@ const createCourse = () => {
     price: "9.99",
     uploading: false,
     paid: true,
+    category: "",
     loading: false,
     imagePreview: "",
   });
@@ -31,8 +32,8 @@ const createCourse = () => {
       <h1 className="jumbotron text-center square">Create Course</h1>
       <CourseCreateForm
         handleSubmit={handleSubmit}
-        handleChange={handleChange}
         handleImage={handleImage}
+        handleChange={handleChange}
         values={values}
         setValues={setValues}
       />

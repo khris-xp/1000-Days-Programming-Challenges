@@ -11,6 +11,12 @@ const CourseCreateForm = ({
   values,
   setValues,
 }) => {
+  const children = [];
+
+  for (var i = 9.99; i <= 99.99; i++) {
+    children.push(<Option key={i.toFixed(2)}>${i.toFixed(2)}</Option>);
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group pt-3 pb-3">
@@ -35,7 +41,7 @@ const CourseCreateForm = ({
         ></textarea>
       </div>
 
-      <div className="form-group pt-3 pb-3">
+      <div className="form-row pt-3 pb-3">
         <div className="col">
           <div className="form-group">
             <Select
@@ -49,9 +55,33 @@ const CourseCreateForm = ({
             </Select>
           </div>
         </div>
+        {values.paid && (
+          <div className="form-group pt-3">
+            <Select
+              defaultValue="$9.99"
+              style={{ width: "100%" }}
+              onChange={(v) => setValues({ ...values, price: v })}
+              tokenSeparators={[,]}
+              size="large"
+            >
+              {children}
+            </Select>
+          </div>
+        )}
       </div>
 
-      <div className="form-rol pt-3 pb-3">
+      <div className="form-group pt-3 pb-3">
+        <input
+          type="text"
+          name="category"
+          className="form-control"
+          placeholder="Category"
+          value={values.category}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-row pt-3 pb-3">
         <div className="col">
           <div className="form-group">
             <label className="btn btn-outline-secondary btn-block text-left">
