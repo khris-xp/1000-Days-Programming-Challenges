@@ -1,3 +1,4 @@
+// import { Request, Response } from "express";
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -20,7 +21,7 @@ mongoose.connection.on("error", (err: Error) => {
   console.log(`Mongoose connection error: ${err}`);
 });
 
-// Express 
+// Express
 app.use(express.json());
 
 app.listen(PORT, () => {
