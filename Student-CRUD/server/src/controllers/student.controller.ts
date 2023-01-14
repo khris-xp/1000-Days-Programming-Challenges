@@ -1,30 +1,61 @@
 import { Student } from "../models/students.model";
 import { Request, Response } from "express";
+import { StudentDocument } from "../interfaces/students.interface";
 
-const student = new Student();
+const studentModel = new Student();
 
-export const getAll = async (req: Request, res: Response) => {
+const getAllStudent = async (req: Request, res: Response) => {
   req.headers;
-  const students = await student.findAll();
+  const students = await studentModel.findAll();
   res.json(students);
 };
 
-export const getById = async (req: Request, res: Response) => {
-  const result = await student.findById(req.params.id);
-  res.json(result);
+const getStudentById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const student = await studentModel.findById(id);
+  if (!student) {
+    return res.status(500).json({ message: "Student not Found" });
+  }
+  res.json(student);
 };
 
-export const create = async (req: Request, res: Response) => {
-  const result = await student.create(req.body);
-  res.json(result);
+const createStudent = async (req: Request, res: Response) => {
+  const { name, age, class: className, grade, gpa } = req.body;
+  if (!name || !age || !className || !grade || !gpa) {
+    return res.status(500).json({ message: "Missing required fields" });
+  }
+  try {
+    const studentData: StudentDocument = req.body;
+    const existingStudent = await studentModel.findByName(name);
+    if (existingStudent) {
+      return res
+        .status(500)
+        .json({ message: "Student with this name already exists" });
+    }
+    const result = await studentModel.create(studentData);
+    res.json(result);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-export const update = async (req: Request, res: Response) => {
-  const result = await student.update(req.params.id, req.body);
-  res.json(result);
+const updateStudent = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const student = await studentModel.findById(id);
+  if (!student) {
+    return res.status(404).json({ message: "Student not found" });
+  }
+  try {
+    const updatedStudent = await studentModel.update(id, req.body);
+    res.json(updatedStudent);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-export const deleteById = async (req: Request, res: Response) => {
-  await student.delete(req.params.id);
-  res.json({ message: "Successfully deleted student" });
+module.exports = {
+  getAllStudent,
+  getStudentById,
+  createStudent,
+  updateStudent,
 };

@@ -24,6 +24,10 @@ export class Student {
     return await this.model.findById(id);
   }
 
+  async findByName(name: string): Promise<StudentDocument | null> {
+    return await this.model.findOne({ name });
+  }
+
   async create(student: StudentDocument): Promise<StudentDocument> {
     return await new this.model(student).save();
   }
