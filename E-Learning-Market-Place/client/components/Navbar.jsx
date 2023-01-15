@@ -1,5 +1,5 @@
 import { React, useContext } from "react";
-import { Menu, Icon } from "antd";
+import { Menu } from "antd";
 import Link from "next/link";
 import {
   HomeTwoTone,
