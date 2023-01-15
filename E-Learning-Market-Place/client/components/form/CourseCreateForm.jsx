@@ -1,5 +1,5 @@
 import { React } from "react";
-import { Select, Button, Avatar } from "antd";
+import { Select, Button, Avatar, Badge } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
 
 const Option = Select;
@@ -8,10 +8,11 @@ const CourseCreateForm = ({
   handleSubmit,
   handleChange,
   handleImage,
+  handleImageRemove,
   values,
   setValues,
   preview,
-  uploadButtonText
+  uploadButtonText,
 }) => {
   const children = [];
 
@@ -99,9 +100,15 @@ const CourseCreateForm = ({
           </div>
         </div>
         {preview && (
-          <div className="col-md-6">
-            <Avatar width={200} src={preview} />
-          </div>
+          <Badge
+            count="X"
+            onClick={handleImageRemove}
+            className="pointer-event"
+          >
+            <div className="col-md-6">
+              <Avatar width={200} src={preview} />
+            </div>
+          </Badge>
         )}
       </div>
 
