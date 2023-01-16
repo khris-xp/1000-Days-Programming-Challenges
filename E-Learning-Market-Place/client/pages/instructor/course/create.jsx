@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 const createCourse = () => {
+  // state
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -16,13 +17,12 @@ const createCourse = () => {
     paid: true,
     category: "",
     loading: false,
-    imagePreview: "",
   });
-
   const [image, setImage] = useState({});
   const [preview, setPreview] = useState("");
-  const [uploadButtonText, setUploadButtonText] = useState("Image Upload");
+  const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
 
+  // router
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -34,66 +34,70 @@ const createCourse = () => {
     setPreview(window.URL.createObjectURL(file));
     setUploadButtonText(file.name);
     setValues({ ...values, loading: true });
-
+    // resize
     Resizer.imageFileResizer(file, 720, 500, "JPEG", 100, 0, async (uri) => {
       try {
         let { data } = await axios.post("/api/course/upload-image", {
           image: uri,
         });
-        console.log("Imaged Upload : ", data);
+        console.log("IMAGE UPLOADED", data);
+        // set image in the state
         setImage(data);
-        setValues({ ...values, laoding: false });
+        setValues({ ...values, loading: false });
       } catch (err) {
         console.log(err);
         setValues({ ...values, loading: false });
-        toast.error("Image upload failed. Try again later");
+        toast("Image upload failed. Try later.");
       }
     });
   };
 
   const handleImageRemove = async () => {
     try {
+      // console.log(values);
       setValues({ ...values, loading: true });
-      let { res } = await axios.post("/api/course/remove-image", { image });
+      const res = await axios.post("/api/course/remove-image", { image });
       setImage({});
       setPreview("");
-      setUploadButtonText("Image Upload");
+      setUploadButtonText("Upload Image");
       setValues({ ...values, loading: false });
     } catch (err) {
       console.log(err);
       setValues({ ...values, loading: false });
-      toast.error("Image upload failed. Try again later");
+      toast("Image upload failed. Try later.");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = axios.post("/api/course", {
+      // console.log(values);
+      const { data } = await axios.post("/api/course", {
         ...values,
         image,
       });
-      toast.success("Great! Now you can start adding lessons");
-      router.push("/instructor");
-      res.json(data);
+      toast("Great! Now you can start adding lessons");
+      console.log(data);
     } catch (err) {
-      console.log(err);
+      toast(err.response.data);
     }
   };
 
   return (
     <InstructorRoute>
       <h1 className="jumbotron text-center square">Create Course</h1>
-      <CourseCreateForm
-        handleSubmit={handleSubmit}
-        handleImage={handleImage}
-        handleChange={handleChange}
-        values={values}
-        setValues={setValues}
-        preview={preview}
-        uploadButtonText={uploadButtonText}
-        handleImageRemove={handleImageRemove}
-      />
+      <div className="pt-3 pb-3">
+        <CourseCreateForm
+          handleSubmit={handleSubmit}
+          handleImage={handleImage}
+          handleChange={handleChange}
+          values={values}
+          setValues={setValues}
+          preview={preview}
+          uploadButtonText={uploadButtonText}
+          handleImageRemove={handleImageRemove}
+        />
+      </div>
       <pre>{JSON.stringify(values, null, 4)}</pre>
       <hr />
       <pre>{JSON.stringify(image, null, 4)}</pre>
