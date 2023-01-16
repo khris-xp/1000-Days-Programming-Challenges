@@ -1,6 +1,5 @@
 const AWS = require("aws-sdk");
 var { nanoid: ID, nanoid } = require("nanoid");
-const { createStyleRegistry } = require("styled-jsx");
 
 const awsConfig = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -70,4 +69,8 @@ const removeImage = async (req, res) => {
   }
 };
 
-module.exports = { uploadImage, removeImage };
+const createCourse = async (req, res) => {
+  console.log(req.body);
+};
+
+module.exports = { uploadImage, removeImage, createCourse };

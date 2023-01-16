@@ -1,11 +1,21 @@
 const express = require("express");
-
 const router = express.Router();
 
-const requireSignin = require("../middleware/index");
-const { uploadImage, removeImage } = require("../controllers/course");
+// middleware
+const { requireSignin, isInstructor } = require("../middleware");
 
+// controllers
+const {
+  uploadImage,
+  removeImage,
+  createCourse,
+} = require("../controllers/course");
+
+// image
 router.post("/course/upload-image", uploadImage);
 router.post("/course/remove-image", removeImage);
+
+// course
+router.post("/course", requireSignin, isInstructor, createCourse);
 
 module.exports = router;
