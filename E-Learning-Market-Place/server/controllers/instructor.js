@@ -1,6 +1,7 @@
 const Users = require("../models/user");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const querystring = require("node:querystring");
+const Courses = require("../models/course");
 
 const makeInstructor = async (req, res) => {
   try {
@@ -66,4 +67,22 @@ const currentInstructor = async (req, res) => {
   }
 };
 
-module.exports = { makeInstructor, getAccountStatus, currentInstructor };
+const instructorCourses = async (req, res) => {
+  try {
+    const courses = await Courses.find({ instructor: req.user._id })
+      .sort({
+        createdAt: -1,
+      })
+      .exec();
+    res.json(courses);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = {
+  makeInstructor,
+  getAccountStatus,
+  currentInstructor,
+  instructorCourses,
+};

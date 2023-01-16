@@ -76,10 +76,11 @@ const createCourse = () => {
         ...values,
         image,
       });
-      toast("Great! Now you can start adding lessons");
+      toast.success("Great! Now you can start adding lessons");
       console.log(data);
+      router.push("/instructor");
     } catch (err) {
-      toast(err.response.data);
+      toast.error(err.response.data);
     }
   };
 
