@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
-import "antd/dist/reset.css";
+import "antd/dist/antd.css";
 import "../styles/globals.css";
 import Navbar from "../components/Navbar";
 import { ToastContainer } from "react-toastify";

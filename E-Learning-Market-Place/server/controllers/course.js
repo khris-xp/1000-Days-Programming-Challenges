@@ -91,4 +91,15 @@ const createCourse = async (req, res) => {
   }
 };
 
-module.exports = { uploadImage, removeImage, createCourse };
+const readCourse = async (req, res) => {
+  try {
+    const course = await Course.findOne({ slug: req.params.slug })
+      .populate("instructor", "_id name")
+      .exec();
+    res.json(course);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { uploadImage, removeImage, createCourse, readCourse };
