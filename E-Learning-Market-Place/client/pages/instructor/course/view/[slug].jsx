@@ -5,10 +5,17 @@ import axios from "axios";
 import { Avatar, Button, Modal, Tooltip } from "antd";
 import { CheckOutlined, EditOutlined, UploadOutlined } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
+import AddLessonForm from "../../../../components/form/AddLessonForm";
 
 const CourseView = () => {
   const [course, setCourse] = useState({});
   const [visible, setVisible] = useState(false);
+  const [values, setValues] = useState({
+    title: "",
+    content: "",
+    video: "",
+  });
+  const [uploading, setUploading] = useState(false);
 
   const router = useRouter();
   const { slug } = router.query;
@@ -23,10 +30,15 @@ const CourseView = () => {
     console.log(data);
   };
 
+  // Add Lessons Function
+  const handleAddLesson = (e) => {
+    e.preventDefault();
+    console.log(values);
+  };
+
   return (
     <InstructorRoute>
       <div className="container-fluid pt-3">
-        {/* <pre>{JSON.stringify(course, null, 4)}</pre> */}
         {course && (
           <div className="container-fluid pt-1">
             <div className="media pt-2">
@@ -88,6 +100,12 @@ const CourseView = () => {
               footer={null}
             >
               Show add lesson components
+              <AddLessonForm
+                values={values}
+                setValues={setValues}
+                handleAddLesson={handleAddLesson}
+                uploading={uploading}
+              />
             </Modal>
           </div>
         )}
