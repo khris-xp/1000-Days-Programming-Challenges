@@ -22,7 +22,7 @@ const CourseCreateForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="form-group pt-3 pb-3">
+      <div className="form-group">
         <input
           type="text"
           name="name"
@@ -33,18 +33,18 @@ const CourseCreateForm = ({
         />
       </div>
 
-      <div className="form-group pt-3 pb-3">
+      <div className="form-group">
         <textarea
           name="description"
           cols="7"
           rows="7"
-          className="form-control"
           value={values.description}
+          className="form-control"
           onChange={handleChange}
         ></textarea>
       </div>
 
-      <div className="form-row pt-3 pb-3">
+      <div className="form-row">
         <div className="col">
           <div className="form-group">
             <Select
@@ -58,11 +58,12 @@ const CourseCreateForm = ({
             </Select>
           </div>
         </div>
+
         {values.paid && (
-          <div className="form-group pt-3">
+          <div className="form-group">
             <Select
               defaultValue="$9.99"
-              style={{ width: "100%" }}
+              style={{ widht: "100%" }}
               onChange={(v) => setValues({ ...values, price: v })}
               tokenSeparators={[,]}
               size="large"
@@ -73,7 +74,7 @@ const CourseCreateForm = ({
         )}
       </div>
 
-      <div className="form-group pt-3 pb-3">
+      <div className="form-group">
         <input
           type="text"
           name="category"
@@ -84,7 +85,7 @@ const CourseCreateForm = ({
         />
       </div>
 
-      <div className="form-row pt-3 pb-3">
+      <div className="form-row">
         <div className="col">
           <div className="form-group">
             <label className="btn btn-outline-secondary btn-block text-left">
@@ -99,32 +100,26 @@ const CourseCreateForm = ({
             </label>
           </div>
         </div>
+
         {preview && (
-          <Badge
-            count="X"
-            onClick={handleImageRemove}
-            className="pointer-event"
-          >
-            <div className="col-md-6">
-              <Avatar width={200} src={preview} />
-            </div>
+          <Badge count="X" onClick={handleImageRemove} className="pointer">
+            <Avatar width={200} src={preview} />
           </Badge>
         )}
       </div>
 
-      <div className="row pt-3 pb-3">
+      <div className="row">
         <div className="col">
           <Button
             onClick={handleSubmit}
             disabled={values.loading || values.uploading}
             className="btn btn-primary"
-            icon={<SaveOutlined />}
+            loading={values.loading}
             type="primary"
             size="large"
-            loading={values.loading}
             shape="round"
           >
-            {values.loading ? "Saving" : "Save & Continue"}
+            {values.loading ? "Saving..." : "Save & Continue"}
           </Button>
         </div>
       </div>

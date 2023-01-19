@@ -71,7 +71,6 @@ const createCourse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // console.log(values);
       const { data } = await axios.post("/api/course", {
         ...values,
         image,
@@ -99,9 +98,6 @@ const createCourse = () => {
           handleImageRemove={handleImageRemove}
         />
       </div>
-      <pre>{JSON.stringify(values, null, 4)}</pre>
-      <hr />
-      <pre>{JSON.stringify(image, null, 4)}</pre>
     </InstructorRoute>
   );
 };
