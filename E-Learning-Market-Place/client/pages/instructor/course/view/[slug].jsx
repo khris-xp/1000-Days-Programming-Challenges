@@ -4,6 +4,7 @@ import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import axios from "axios";
 import { Avatar, Tooltip } from "antd";
 import { CheckOutlined, EditOutlined } from "@ant-design/icons";
+import ReactMarkdown from "react-markdown";
 
 const CourseView = () => {
   const [course, setCourse] = useState({});
@@ -57,6 +58,12 @@ const CourseView = () => {
                 <Tooltip title="Publish">
                   <CheckOutlined className="h5 pointer-event text-danger" />
                 </Tooltip>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col">
+                <ReactMarkdown source={course.description} />
               </div>
             </div>
           </div>
