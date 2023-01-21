@@ -105,6 +105,10 @@ const readCourse = async (req, res) => {
 
 const uploadVideo = async (req, res) => {
   try {
+    if (req.user._id !== req.params.instructorId) {
+      return res.status(400).send("Unauthorized");
+    }
+
     const { video } = req.files;
     if (!video) {
       return res.status(400).send("No Video");
@@ -132,21 +136,28 @@ const uploadVideo = async (req, res) => {
 };
 
 const removeVideo = async (req, res) => {
-  const { Bucket, Key } = req.body;
-
-  const params = {
-    Bucket,
-    Key,
-  };
-
-  S3.deleteObject(params, (err, data) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(400);
+  try {
+    if (req.user._id !== req.params.instructorId) {
+      return res.status(400).send("Unauthorized");
     }
-    console.log(data);
-    res.send(data);
-  });
+    const { Bucket, Key } = req.body;
+
+    const params = {
+      Bucket,
+      Key,
+    };
+
+    S3.deleteObject(params, (err, data) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(400);
+      }
+      console.log(data);
+      res.send(data);
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = {
