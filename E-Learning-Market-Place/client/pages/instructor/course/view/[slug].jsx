@@ -65,7 +65,7 @@ const CourseView = () => {
   const handleRemoveVideo = async (req, res) => {
     try {
       const { data } = await axios.post(
-        "/api/course/remove-video",
+        "/api/course/video-remove",
         values.video
       );
       console.log(data);

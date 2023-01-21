@@ -131,10 +131,29 @@ const uploadVideo = async (req, res) => {
   }
 };
 
+const removeVideo = async (req, res) => {
+  const { Bucket, Key } = req.body;
+
+  const params = {
+    Bucket,
+    Key,
+  };
+
+  S3.deleteObject(params, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(400);
+    }
+    console.log(data);
+    res.send(data);
+  });
+};
+
 module.exports = {
   uploadImage,
   removeImage,
   createCourse,
   readCourse,
   uploadVideo,
+  removeVideo,
 };
