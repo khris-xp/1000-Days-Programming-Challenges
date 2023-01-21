@@ -34,9 +34,24 @@ const CourseView = () => {
   };
 
   // Add Lessons Function
-  const handleAddLesson = (e) => {
+  const handleAddLesson = async (e) => {
     e.preventDefault();
-    console.log(values);
+    // console.log(values);
+    try {
+      const { data } = await axios.post(
+        `/api/course/lesson/${slug}/${course.instructor._id}`,
+        values
+      );
+      // console.log(data)
+      setValues({ ...values, title: "", content: "", video: {} });
+      setVisible(false);
+      setUploadButtonText("Upload video");
+      setCourse(data);
+      toast("Lesson added");
+    } catch (err) {
+      console.log(err);
+      toast("Lesson add failed");
+    }
   };
 
   const handleVideo = async (e) => {
