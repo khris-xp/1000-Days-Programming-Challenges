@@ -2,6 +2,7 @@ const AWS = require("aws-sdk");
 var { nanoid: ID, nanoid } = require("nanoid");
 const Course = require("../models/course");
 const slugify = require("slugify");
+const fs = require("fs");
 
 const awsConfig = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -102,4 +103,38 @@ const readCourse = async (req, res) => {
   }
 };
 
-module.exports = { uploadImage, removeImage, createCourse, readCourse };
+const uploadVideo = async (req, res) => {
+  try {
+    const { video } = req.files;
+    if (!video) {
+      return res.status(400).send("No Video");
+    }
+
+    const params = {
+      Bucket: "e-learning-marketplace-bucket",
+      Key: `${nanoid()}.${video.type.split("/")[1]}`,
+      Body: fs.readFileSync(video.path),
+      ACL: "public-read",
+      CuurentType: video.type,
+    };
+
+    S3.upload(params, (err, data) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(400);
+      }
+      console.log(data);
+      res.send(data);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = {
+  uploadImage,
+  removeImage,
+  createCourse,
+  readCourse,
+  uploadVideo,
+};
