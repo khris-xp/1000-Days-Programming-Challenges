@@ -44,14 +44,14 @@ const CourseView = () => {
         values
       );
       // console.log(data)
-      setValues({ ...values, title: "", content: "", video: {} });
+      setValues("");
       setVisible(false);
       setUploadButtonText("Upload video");
       setCourse(data);
-      toast("Lesson added");
+      toast.success("Lesson added");
     } catch (err) {
       console.log(err);
-      toast("Lesson add failed");
+      toast.error("Lesson add failed");
     }
   };
 
@@ -129,7 +129,12 @@ const CourseView = () => {
 
               <div className="d-flex pt-4">
                 <Tooltip title="Edit">
-                  <EditOutlined className="h5 pointer-event text-warning mr-4" />
+                  <EditOutlined
+                    onClick={() =>
+                      router.push(`/instructor/course/edit/${slug}`)
+                    }
+                    className="h5 pointer-event text-warning mr-4"
+                  />
                 </Tooltip>
                 <Tooltip title="Publish">
                   <CheckOutlined className="h5 pointer-event text-danger" />
