@@ -33,6 +33,9 @@ const editCourse = () => {
   const loadCourse = async () => {
     const { data } = await axios.get(`/api/course/${slug}`);
     setValues(data);
+    if (data && data.image) {
+      setImage(data.image);
+    }
   };
 
   const handleChange = (e) => {
@@ -65,15 +68,30 @@ const editCourse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put("/api/course", {
+      const { data } = await axios.put(`/api/course/${slug}`, {
         ...values,
         image,
       });
-      toast.success("Great! Now you can start adding lessons");
-      console.log(data);
-      router.push("/instructor");
+      toast.success("Course Updated.");
     } catch (err) {
       toast.error(err.response.data);
+    }
+  };
+
+  const handleRemoveVideo = async (e) => {
+    try {
+      const { data } = await axios.post(
+        `/api/course/video-remove/${course.instructor._id}`,
+        values.video
+      );
+      console.log(data);
+      setUploading(false);
+      setValues({ ...values, video: {} });
+      setUploadButtonText("Upload another video.");
+    } catch (err) {
+      console.log(err);
+      setUploading(false);
+      toast.error("Video remove failed");
     }
   };
 
@@ -89,6 +107,7 @@ const editCourse = () => {
           setValues={setValues}
           preview={preview}
           uploadButtonText={uploadButtonText}
+          handleRemoveVideo={handleRemoveVideo}
           editPage={true}
         />
       </div>
