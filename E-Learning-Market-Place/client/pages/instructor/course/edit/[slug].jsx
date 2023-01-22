@@ -124,15 +124,15 @@ const editCourse = () => {
   };
 
   const handleDelete = async (index) => {
-    const answer = window.prompt("Are you sure you want to delete ?");
+    const answer = window.confirm("Are you sure you want to delete ?");
     if (!answer) {
       return;
     }
     let alllessons = values.lessons;
-    const { removed } = alllessons.splice(index, 1);
+    const removed = alllessons.splice(index, 1);
     setValues({ ...values, lessons: alllessons });
 
-    const { data } = await axios.put(`/api/course/${removed._id}`);
+    const { data } = await axios.put(`/api/course/${slug}/${removed[0]._id}`);
     console.log("LESSONS DELETED : ", data);
   };
 
