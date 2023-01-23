@@ -3,6 +3,7 @@ import React from "react";
 import axios from "axios";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import CourseCreateForm from "../../../../components/form/CourseCreateForm";
+import UpdateLessonForm from "../../../../components/form/UpdateLessonForm";
 import Resizer from "react-image-file-resizer";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
@@ -28,6 +29,10 @@ const editCourse = () => {
 
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState({});
+  const [uploadVideoButtonText, setUploadVideoButtonText] =
+    useState("Upload Video");
+  const [progress, setProgress] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   // router
   const router = useRouter();
@@ -136,6 +141,14 @@ const editCourse = () => {
     console.log("LESSONS DELETED : ", data);
   };
 
+  const handleVideo = () => {
+    console.log("handle video");
+  };
+
+  const handleUpdateLesson = () => {
+    console.log("handle update lesson");
+  };
+
   return (
     <InstructorRoute>
       <h1 className="jumbotron text-center square">Update Course</h1>
@@ -194,7 +207,15 @@ const editCourse = () => {
         onCancel={() => setVisible(false)}
       >
         Update Lessons
-        <pre>{JSON.stringify(current, null, 4)}</pre>
+        <UpdateLessonForm
+          current={current}
+          setCurrent={setCurrent}
+          handleVideo={handleVideo}
+          handleUpdateLesson={handleUpdateLesson}
+          uploadVideoButtonText={uploadVideoButtonText}
+          progress={progress}
+          uploading={uploading}
+        />
       </Modal>
     </InstructorRoute>
   );
