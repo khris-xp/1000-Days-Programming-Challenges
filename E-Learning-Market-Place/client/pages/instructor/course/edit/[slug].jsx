@@ -6,7 +6,7 @@ import CourseCreateForm from "../../../../components/form/CourseCreateForm";
 import Resizer from "react-image-file-resizer";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import { List, Avatar } from "antd";
+import { List, Avatar, Modal } from "antd";
 import Item from "antd/lib/list/Item";
 import { DeleteOutlined } from "@ant-design/icons";
 
@@ -25,6 +25,9 @@ const editCourse = () => {
   const [image, setImage] = useState({});
   const [preview, setPreview] = useState("");
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
+
+  const [visible, setVisible] = useState(false);
+  const [current, setCurrent] = useState({});
 
   // router
   const router = useRouter();
@@ -118,9 +121,6 @@ const editCourse = () => {
       ...values,
       image,
     });
-
-    console.log("LESSONS REARRANGED : ", data);
-    toast.success("Lessons rearranged successfully");
   };
 
   const handleDelete = async (index) => {
@@ -169,6 +169,10 @@ const editCourse = () => {
                   onDrop={(e) => handleDrop(e, index)}
                 >
                   <Item.Meta
+                    onClick={() => {
+                      setVisible(true);
+                      setCurrent(items);
+                    }}
                     avatar={<Avatar>{index + 1}</Avatar>}
                     title={items.title}
                   ></Item.Meta>
@@ -183,6 +187,15 @@ const editCourse = () => {
           </div>
         </div>
       )}
+      <Modal
+        title="Updated Lessons"
+        centered
+        open={visible}
+        onCancel={() => setVisible(false)}
+      >
+        Update Lessons
+        <pre>{JSON.stringify(current, null, 4)}</pre>
+      </Modal>
     </InstructorRoute>
   );
 };
