@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import React from "react";
 import axios from "axios";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import CourseCreateForm from "../../../../components/form/CourseCreateForm";
-import UpdateLessonForm from "../../../../components/form/UpdateLessonForm";
 import Resizer from "react-image-file-resizer";
-import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 import { List, Avatar, Modal } from "antd";
-import Item from "antd/lib/list/Item";
 import { DeleteOutlined } from "@ant-design/icons";
+import UpdateLessonForm from "../../../../components/form/UpdateLessonForm";
 
-const editCourse = () => {
+const { Item } = List;
+
+const CourseEdit = () => {
   // state
   const [values, setValues] = useState({
     name: "",
@@ -27,6 +27,7 @@ const editCourse = () => {
   const [preview, setPreview] = useState("");
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
 
+  // state for lessons update
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState({});
   const [uploadVideoButtonText, setUploadVideoButtonText] =
@@ -44,10 +45,9 @@ const editCourse = () => {
 
   const loadCourse = async () => {
     const { data } = await axios.get(`/api/course/${slug}`);
-    setValues(data);
-    if (data && data.image) {
-      setImage(data.image);
-    }
+    console.log(data);
+    if (data) setValues(data);
+    if (data && data.image) setImage(data.image);
   };
 
   const handleChange = (e) => {
@@ -77,69 +77,78 @@ const editCourse = () => {
     });
   };
 
+  const handleImageRemove = async () => {
+    try {
+      // console.log(values);
+      setValues({ ...values, loading: true });
+      const res = await axios.post("/api/course/remove-image", { image });
+      setImage({});
+      setPreview("");
+      setUploadButtonText("Upload Image");
+      setValues({ ...values, loading: false });
+    } catch (err) {
+      console.log(err);
+      setValues({ ...values, loading: false });
+      toast("Image upload failed. Try later.");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // console.log(values);
       const { data } = await axios.put(`/api/course/${slug}`, {
         ...values,
         image,
       });
-      toast.success("Course Updated.");
+      toast("Course updated!");
+      // router.push("/instructor");
     } catch (err) {
-      toast.error(err.response.data);
+      toast(err.response.data);
     }
   };
 
-  const handleRemoveVideo = async (e) => {
-    try {
-      const { data } = await axios.post(
-        `/api/course/video-remove/${course.instructor._id}`,
-        values.video
-      );
-      console.log(data);
-      setUploading(false);
-      setValues({ ...values, video: {} });
-      setUploadButtonText("Upload another video.");
-    } catch (err) {
-      console.log(err);
-      setUploading(false);
-      toast.error("Video remove failed");
-    }
-  };
-
-  const handleDrag = async (e, index) => {
+  const handleDrag = (e, index) => {
+    // console.log("ON DRAG => ", index);
     e.dataTransfer.setData("itemIndex", index);
   };
 
   const handleDrop = async (e, index) => {
+    // console.log("ON DROP => ", index);
+
     const movingItemIndex = e.dataTransfer.getData("itemIndex");
     const targetItemIndex = index;
-    let alllessons = values.lessons;
+    let allLessons = values.lessons;
 
-    let movingItem = alllessons[movingItemIndex];
-    alllessons.splice(movingItemIndex, 1);
-    alllessons.splice(targetItemIndex, 0, movingItem);
+    let movingItem = allLessons[movingItemIndex]; // clicked/dragged item to re-order
+    allLessons.splice(movingItemIndex, 1); // remove 1 item from the given index
+    allLessons.splice(targetItemIndex, 0, movingItem); // push item after target item index
 
-    setValues({ ...values, lessons: [...alllessons] });
-
+    setValues({ ...values, lessons: [...allLessons] });
+    // save the new lessons order in db
     const { data } = await axios.put(`/api/course/${slug}`, {
       ...values,
       image,
     });
+    // console.log("LESSONS REARRANGED RES => ", data);
+    toast("Lessons rearranged successfully");
   };
 
   const handleDelete = async (index) => {
-    const answer = window.confirm("Are you sure you want to delete ?");
-    if (!answer) {
-      return;
-    }
-    let alllessons = values.lessons;
-    const removed = alllessons.splice(index, 1);
-    setValues({ ...values, lessons: alllessons });
-
+    const answer = window.confirm("Are you sure you want to delete?");
+    if (!answer) return;
+    let allLessons = values.lessons;
+    const removed = allLessons.splice(index, 1);
+    // console.log("removed", removed[0]._id);
+    setValues({ ...values, lessons: allLessons });
+    // send request to server
     const { data } = await axios.put(`/api/course/${slug}/${removed[0]._id}`);
-    console.log("LESSONS DELETED : ", data);
+    console.log("LESSON DELETED =>", data);
   };
+
+  /**
+   * lesson update functions
+   */
 
   const handleVideo = () => {
     console.log("handle video");
@@ -152,61 +161,65 @@ const editCourse = () => {
   return (
     <InstructorRoute>
       <h1 className="jumbotron text-center square">Update Course</h1>
+      {/* {JSON.stringify(values)} */}
       <div className="pt-3 pb-3">
         <CourseCreateForm
           handleSubmit={handleSubmit}
+          handleImageRemove={handleImageRemove}
           handleImage={handleImage}
           handleChange={handleChange}
           values={values}
           setValues={setValues}
           preview={preview}
           uploadButtonText={uploadButtonText}
-          handleRemoveVideo={handleRemoveVideo}
           editPage={true}
         />
       </div>
+      {/* <pre>{JSON.stringify(values, null, 4)}</pre>
+      <hr />
+      <pre>{JSON.stringify(image, null, 4)}</pre> */}
 
       <hr />
-      {values && (
-        <div className="row pb-5">
-          <div className="col lesson-list">
-            <h4>{values && values.lessons && values.lessons.length} Lessons</h4>
-            <List
-              onDragOver={(e) => e.preventDefault()}
-              itemLayout="horizontal"
-              dataSource={values && values.lessons}
-              renderItem={(items, index) => (
-                <Item
-                  draggable
-                  onDragStart={(e) => handleDrag(e, index)}
-                  onDrop={(e) => handleDrop(e, index)}
-                >
-                  <Item.Meta
-                    onClick={() => {
-                      setVisible(true);
-                      setCurrent(items);
-                    }}
-                    avatar={<Avatar>{index + 1}</Avatar>}
-                    title={items.title}
-                  ></Item.Meta>
 
-                  <DeleteOutlined
-                    className="text-danger float-right"
-                    onClick={() => handleDelete(index)}
-                  />
-                </Item>
-              )}
-            ></List>
-          </div>
+      <div className="row pb-5">
+        <div className="col lesson-list">
+          <h4>{values && values.lessons && values.lessons.length} Lessons</h4>
+          <List
+            onDragOver={(e) => e.preventDefault()}
+            itemLayout="horizontal"
+            dataSource={values && values.lessons}
+            renderItem={(item, index) => (
+              <Item
+                draggable
+                onDragStart={(e) => handleDrag(e, index)}
+                onDrop={(e) => handleDrop(e, index)}
+              >
+                <Item.Meta
+                  onClick={() => {
+                    setVisible(true);
+                    setCurrent(item);
+                  }}
+                  avatar={<Avatar>{index + 1}</Avatar>}
+                  title={item.title}
+                ></Item.Meta>
+
+                <DeleteOutlined
+                  onClick={() => handleDelete(index)}
+                  className="text-danger float-right"
+                />
+              </Item>
+            )}
+          ></List>
         </div>
-      )}
+      </div>
+
       <Modal
-        title="Updated Lessons"
+        title="Update lesson"
         centered
-        open={visible}
+        visible={visible}
         onCancel={() => setVisible(false)}
+        footer={null}
       >
-        Update Lessons
         <UpdateLessonForm
           current={current}
           setCurrent={setCurrent}
@@ -216,9 +229,10 @@ const editCourse = () => {
           progress={progress}
           uploading={uploading}
         />
+        {/* <pre>{JSON.stringify(current, null, 4)}</pre> */}
       </Modal>
     </InstructorRoute>
   );
 };
 
-export default editCourse;
+export default CourseEdit;

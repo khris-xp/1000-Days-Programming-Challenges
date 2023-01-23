@@ -38,7 +38,7 @@ const AddLessonForm = ({
             <input type="file" accept="video/*" hidden onChange={handleVideo} />
           </label>
 
-          {!uploading && values.video.Location && (
+          {!uploading && values.video && values.video.Location && (
             <Tooltip title="Remove">
               <span className="pt-1 pl-3">
                 <CloseCircleFilled
