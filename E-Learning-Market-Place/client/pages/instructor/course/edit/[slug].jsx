@@ -45,7 +45,6 @@ const CourseEdit = () => {
 
   const loadCourse = async () => {
     const { data } = await axios.get(`/api/course/${slug}`);
-    console.log(data);
     if (data) setValues(data);
     if (data && data.image) setImage(data.image);
   };
@@ -66,7 +65,6 @@ const CourseEdit = () => {
           image: uri,
         });
         console.log("IMAGE UPLOADED", data);
-        // set image in the state
         setImage(data);
         setValues({ ...values, loading: false });
       } catch (err) {
@@ -79,7 +77,6 @@ const CourseEdit = () => {
 
   const handleImageRemove = async () => {
     try {
-      // console.log(values);
       setValues({ ...values, loading: true });
       const res = await axios.post("/api/course/remove-image", { image });
       setImage({});
@@ -96,26 +93,21 @@ const CourseEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // console.log(values);
       const { data } = await axios.put(`/api/course/${slug}`, {
         ...values,
         image,
       });
-      toast("Course updated!");
-      // router.push("/instructor");
+      toast.success("Course updated!");
     } catch (err) {
-      toast(err.response.data);
+      toast.error(err.response.data);
     }
   };
 
   const handleDrag = (e, index) => {
-    // console.log("ON DRAG => ", index);
     e.dataTransfer.setData("itemIndex", index);
   };
 
   const handleDrop = async (e, index) => {
-    // console.log("ON DROP => ", index);
-
     const movingItemIndex = e.dataTransfer.getData("itemIndex");
     const targetItemIndex = index;
     let allLessons = values.lessons;
@@ -125,13 +117,11 @@ const CourseEdit = () => {
     allLessons.splice(targetItemIndex, 0, movingItem); // push item after target item index
 
     setValues({ ...values, lessons: [...allLessons] });
-    // save the new lessons order in db
     const { data } = await axios.put(`/api/course/${slug}`, {
       ...values,
       image,
     });
-    // console.log("LESSONS REARRANGED RES => ", data);
-    toast("Lessons rearranged successfully");
+    toast.success("Lessons rearranged successfully");
   };
 
   const handleDelete = async (index) => {
@@ -139,29 +129,57 @@ const CourseEdit = () => {
     if (!answer) return;
     let allLessons = values.lessons;
     const removed = allLessons.splice(index, 1);
-    // console.log("removed", removed[0]._id);
+
     setValues({ ...values, lessons: allLessons });
-    // send request to server
+
     const { data } = await axios.put(`/api/course/${slug}/${removed[0]._id}`);
-    console.log("LESSON DELETED =>", data);
   };
 
-  /**
-   * lesson update functions
-   */
+  const handleVideo = async (e) => {
+    if (current.video && current.video.Location) {
+      const res = await axios.post(
+        `/api/course/video-remove/${values.instructor._id}`,
+        current.video
+      );
+      console.log("REMOVED : ", res);
+    }
+    // Upload
+    const file = e.target.files[0];
+    setUploadVideoButtonText(file.name);
+    setUploading(true);
+    // send a video as form data
+    const videoData = new FormData();
+    videoData.append("video", file);
+    videoData.append("courseId", values._id);
 
-  const handleVideo = () => {
-    console.log("handle video");
+    const { data } = await axios.post(
+      `/api/course/video-upload/${values.instructor._id}`,
+      videoData,
+      {
+        onUploadProgress: (e) =>
+          setProgress(Math.round((100 * e.loaded) / e.total)),
+      }
+    );
+    console.log(data);
+    setCurrent({ ...current, video: data });
+    setUploading(false);
   };
 
-  const handleUpdateLesson = () => {
-    console.log("handle update lesson");
+  const handleUpdateLesson = async (e) => {
+    e.preventDefault();
+    const { data } = await axios.put(
+      `/api/course/lesson/${slug}/${current._id}`,
+      current
+    );
+    setUploadVideoButtonText("upload Video");
+    setVisible(false);
+    toast.success("Lesson updated");
+    setCourse(data);
   };
 
   return (
     <InstructorRoute>
       <h1 className="jumbotron text-center square">Update Course</h1>
-      {/* {JSON.stringify(values)} */}
       <div className="pt-3 pb-3">
         <CourseCreateForm
           handleSubmit={handleSubmit}
@@ -175,9 +193,6 @@ const CourseEdit = () => {
           editPage={true}
         />
       </div>
-      {/* <pre>{JSON.stringify(values, null, 4)}</pre>
-      <hr />
-      <pre>{JSON.stringify(image, null, 4)}</pre> */}
 
       <hr />
 
@@ -229,7 +244,6 @@ const CourseEdit = () => {
           progress={progress}
           uploading={uploading}
         />
-        {/* <pre>{JSON.stringify(current, null, 4)}</pre> */}
       </Modal>
     </InstructorRoute>
   );

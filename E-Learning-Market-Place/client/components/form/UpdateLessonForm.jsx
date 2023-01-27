@@ -1,5 +1,4 @@
 import { Button, Progress, Switch } from "antd";
-import { CloseCircleFilled, CloseCircleOutlined } from "@ant-design/icons";
 import ReactPlayer from "react-player";
 
 const UpdateLessonForm = ({
@@ -39,7 +38,8 @@ const UpdateLessonForm = ({
                 url={current.video.Location}
                 width="410px"
                 height="240px"
-                controls
+                controls={true}
+                playing={true}
               />
             </div>
           )}

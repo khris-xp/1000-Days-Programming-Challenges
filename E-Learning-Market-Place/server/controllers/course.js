@@ -207,18 +207,19 @@ const updateCourse = async (req, res) => {
   }
 };
 
-const deleteCourse = async (req, res) => {
+const removeLesson = async (req, res) => {
   const { slug, lessonId } = req.params;
   const course = await Course.findOne({ slug }).exec();
-  if (req.user._id != course.instructor) {
-    return res.status(400).send("Unauthorized");
-  }
 
   const deletedCourse = await Course.findByIdAndUpdate(course._id, {
     $pull: { lessons: { _id: lessonId } },
   }).exec();
 
   res.json({ ok: true });
+};
+
+const updatedLesson = () => {
+  console.log("Lesson Updated");
 };
 
 module.exports = {
@@ -230,5 +231,6 @@ module.exports = {
   removeVideo,
   addLesson,
   updateCourse,
-  deleteCourse,
+  removeLesson,
+  updatedLesson,
 };
