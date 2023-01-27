@@ -70,7 +70,7 @@ const CourseEdit = () => {
       } catch (err) {
         console.log(err);
         setValues({ ...values, loading: false });
-        toast("Image upload failed. Try later.");
+        toast.error("Image upload failed. Try later.");
       }
     });
   };
@@ -86,7 +86,7 @@ const CourseEdit = () => {
     } catch (err) {
       console.log(err);
       setValues({ ...values, loading: false });
-      toast("Image upload failed. Try later.");
+      toast.error("Image upload failed. Try later.");
     }
   };
 
@@ -112,9 +112,9 @@ const CourseEdit = () => {
     const targetItemIndex = index;
     let allLessons = values.lessons;
 
-    let movingItem = allLessons[movingItemIndex]; // clicked/dragged item to re-order
-    allLessons.splice(movingItemIndex, 1); // remove 1 item from the given index
-    allLessons.splice(targetItemIndex, 0, movingItem); // push item after target item index
+    let movingItem = allLessons[movingItemIndex];
+    allLessons.splice(movingItemIndex, 1);
+    allLessons.splice(targetItemIndex, 0, movingItem);
 
     setValues({ ...values, lessons: [...allLessons] });
     const { data } = await axios.put(`/api/course/${slug}`, {
@@ -173,8 +173,13 @@ const CourseEdit = () => {
     );
     setUploadVideoButtonText("upload Video");
     setVisible(false);
-    toast.success("Lesson updated");
-    setCourse(data);
+    if (data.ok) {
+      let arr = values.lessons;
+      const index = arr.findIndex((el) => el._id === current._id);
+      arr[index] = current;
+      setValues({ ...values, lessons: arr });
+      toast.success("Lesson Updated");
+    }
   };
 
   return (

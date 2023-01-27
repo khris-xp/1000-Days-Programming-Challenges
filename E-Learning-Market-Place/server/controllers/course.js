@@ -20,7 +20,6 @@ const uploadImage = async (req, res) => {
       return res.status(400).send("No Image");
     }
 
-    // Prepare the image
     const base64Data = new Buffer.from(
       image.replace(/^data:image\/\w+;base64,/, ""),
       "base64"
@@ -28,7 +27,6 @@ const uploadImage = async (req, res) => {
 
     const type = image.split(";")[0].split("/")[1];
 
-    // Image params
     const params = {
       Bucket: "e-learning-marketplace-bucket",
       Key: `${nanoid()}.${type}`,
@@ -38,7 +36,6 @@ const uploadImage = async (req, res) => {
       ContentType: `image/${type}`,
     };
 
-    // Upload
     S3.upload(params, (err, data) => {
       if (err) {
         console.log(err);
@@ -103,6 +100,27 @@ const readCourse = async (req, res) => {
   }
 };
 
+const updateCourse = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const course = await Course.findOne({ slug }).exec();
+
+    if (req.user._id != course.instructor) {
+      return res.status(400).send("Unauthorized");
+    }
+
+    const { updated } = await Course.findOneAndUpdate({ slug }, req.body, {
+      new: true,
+    }).exec();
+
+    res.json(updated);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send(err.messages);
+  }
+};
+
 const uploadVideo = async (req, res) => {
   try {
     if (req.user._id !== req.params.instructorId) {
@@ -160,7 +178,7 @@ const removeVideo = async (req, res) => {
   }
 };
 
-const addLesson = async (req, res) => {
+const createLesson = async (req, res) => {
   try {
     const { slug, instructorId } = req.params;
     const { title, content, video } = req.body;
@@ -186,40 +204,53 @@ const addLesson = async (req, res) => {
   }
 };
 
-const updateCourse = async (req, res) => {
+const updateLesson = async (req, res) => {
   try {
     const { slug } = req.params;
+    const { _id, title, content, video, free_preview } = req.body;
+    const course = await Course.findOne({ slug }).select("instructor").exec();
 
-    const course = await Course.findOne({ slug }).exec();
-
-    if (req.user._id != course.instructor) {
+    if (req.user._id != course.instructor._id) {
       return res.status(400).send("Unauthorized");
     }
 
-    const { updated } = await Course.findOneAndUpdate({ slug }, req.body, {
-      new: true,
-    }).exec();
-
-    res.json(updated);
+    const updated = await Course.updateOne(
+      { "lessons._id": _id },
+      {
+        $set: {
+          "lessons.$.title": title,
+          "lessons.$.content": content,
+          "lessons.$.video": video,
+          "lessons.$.free_preview": free_preview,
+        },
+      },
+      { new: true }
+    ).exec();
+    res.json({ ok: true });
   } catch (err) {
     console.log(err);
     return res.status(400).send(err.messages);
   }
 };
 
-const removeLesson = async (req, res) => {
-  const { slug, lessonId } = req.params;
-  const course = await Course.findOne({ slug }).exec();
+const deleteLesson = async (req, res) => {
+  try {
+    const { slug, lessonId } = req.params;
+    const course = await Course.findOne({ slug }).exec();
 
-  const deletedCourse = await Course.findByIdAndUpdate(course._id, {
-    $pull: { lessons: { _id: lessonId } },
-  }).exec();
+    if (req.user._id != course.instructor._id) {
+      return res.status(400).send("Unauthorized");
+    }
 
-  res.json({ ok: true });
-};
+    const deletedCourse = await Course.findByIdAndUpdate(course._id, {
+      $pull: { lessons: { _id: lessonId } },
+    }).exec();
 
-const updatedLesson = () => {
-  console.log("Lesson Updated");
+    res.json({ ok: true });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send(err.messages);
+  }
 };
 
 module.exports = {
@@ -227,10 +258,10 @@ module.exports = {
   removeImage,
   createCourse,
   readCourse,
+  updateCourse,
   uploadVideo,
   removeVideo,
-  addLesson,
-  updateCourse,
-  removeLesson,
-  updatedLesson,
+  createLesson,
+  updateLesson,
+  deleteLesson,
 };

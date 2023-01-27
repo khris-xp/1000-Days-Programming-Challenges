@@ -5,7 +5,7 @@ const router = express.Router();
 // middleware
 const { requireSignin, isInstructor } = require("../middleware");
 
-// controllers
+// Comtrollers
 const {
   uploadImage,
   removeImage,
@@ -14,16 +14,16 @@ const {
   updateCourse,
   uploadVideo,
   removeVideo,
-  addLesson,
-  removeLesson,
-  updatedLesson,
+  createLesson,
+  updateLesson,
+  deleteLesson,
 } = require("../controllers/course");
 
-// image
+// Router Image
 router.post("/course/upload-image", uploadImage);
 router.post("/course/remove-image", removeImage);
 
-// course
+// Router Course
 router.post("/course", requireSignin, isInstructor, createCourse);
 router.get("/course/:slug", readCourse);
 router.put("/course/:slug", requireSignin, updateCourse);
@@ -36,7 +36,7 @@ router.post(
 router.post("/course/video-remove/:instructorId", requireSignin, removeVideo);
 
 // Router Lesson
-router.post("/course/lesson/:slug/:instructorId", requireSignin, addLesson);
-router.put("/course/:slug/:lessonId", requireSignin, removeLesson);
-router.put("/course/lesson/:slug/:instructorId", requireSignin, updatedLesson);
+router.post("/course/lesson/:slug/:instructorId", requireSignin, createLesson);
+router.put("/course/:slug/:lessonId", requireSignin, deleteLesson);
+router.put("/course/lesson/:slug/:instructorId", requireSignin, updateLesson);
 module.exports = router;
