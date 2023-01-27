@@ -3,7 +3,13 @@ import { useRouter } from "next/router";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import axios from "axios";
 import { Avatar, Button, Modal, Tooltip, List } from "antd";
-import { CheckOutlined, EditOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  EditOutlined,
+  QuestionOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import AddLessonForm from "../../../../components/form/AddLessonForm";
 import { toast } from "react-toastify";
@@ -34,16 +40,13 @@ const CourseView = () => {
     console.log(data);
   };
 
-  // Add Lessons Function
   const handleAddLesson = async (e) => {
     e.preventDefault();
-    // console.log(values);
     try {
       const { data } = await axios.post(
         `/api/course/lesson/${slug}/${course.instructor._id}`,
         values
       );
-      // console.log(data)
       setValues("");
       setVisible(false);
       setUploadButtonText("Upload video");
@@ -99,6 +102,14 @@ const CourseView = () => {
     }
   };
 
+  const handlePublish = (e, courseId) => {
+    console.log("Handle Publish");
+  };
+
+  const handleUnpublish = (e, courseId) => {
+    console.log("Handle Unpublish");
+  };
+
   return (
     <InstructorRoute>
       <div className="container-fluid pt-3">
@@ -136,11 +147,30 @@ const CourseView = () => {
                     className="h5 pointer-event text-warning mr-4"
                   />
                 </Tooltip>
-                <Tooltip title="Publish">
-                  <CheckOutlined className="h5 pointer-event text-danger" />
-                </Tooltip>
+
+                {course.lessons && course.lessons.length < 5 ? (
+                  <Tooltip title="Min 5 lessons required to publish">
+                    <QuestionOutlined className="h5 pointer-event text-danger" />
+                  </Tooltip>
+                ) : course.published ? (
+                  <Tooltip title="Unpublish">
+                    <CloseOutlined
+                      onClick={(e) => handleUnpublish(e, course._id)}
+                      className="h5 pointer-event text-danger"
+                    />
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Publish">
+                    <CheckOutlined
+                      onClick={(e) => handlePublish(e, course._id)}
+                      className="h5 pointer-event text-success"
+                    />
+                  </Tooltip>
+                )}
               </div>
             </div>
+
+            <hr />
 
             <div className="row">
               <div className="col">
