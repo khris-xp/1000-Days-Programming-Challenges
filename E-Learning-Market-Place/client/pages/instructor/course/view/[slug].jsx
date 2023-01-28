@@ -112,7 +112,7 @@ const CourseView = () => {
       }
       const { data } = await axios.put(`/api/course/publish/${courseId}`);
       setCourse(data);
-      toast.success("Congrats! Your course is not live");
+      toast.success("Congrats! Your course is now live");
     } catch (err) {
       toast.error("Course publish failed. Try again");
     }

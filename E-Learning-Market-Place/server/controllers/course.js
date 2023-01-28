@@ -253,6 +253,52 @@ const deleteLesson = async (req, res) => {
   }
 };
 
+const publishCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const course = await Course.findById(courseId).select("instructor").exec();
+
+    if (req.user._id != course.instructor._id) {
+      return res.status(400).send("Unauthorized");
+    }
+
+    const updated = await Course.findByIdAndUpdate(
+      courseId,
+      {
+        published: true,
+      },
+      { new: true }
+    ).exec();
+    res.json(updated);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Publish course failed");
+  }
+};
+
+const unpublishCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const course = await Course.findById(courseId).select("instructor").exec();
+
+    if (req.user._id != course.instructor._id) {
+      return res.status(400).send("Unauthorized");
+    }
+
+    const updated = await Course.findByIdAndUpdate(
+      courseId,
+      {
+        published: false,
+      },
+      { new: true }
+    );
+    res.json(updated);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Unpublish course failed");
+  }
+};
+
 module.exports = {
   uploadImage,
   removeImage,
@@ -264,4 +310,6 @@ module.exports = {
   createLesson,
   updateLesson,
   deleteLesson,
+  publishCourse,
+  unpublishCourse,
 };
