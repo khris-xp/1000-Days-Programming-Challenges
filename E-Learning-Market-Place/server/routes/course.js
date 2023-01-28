@@ -19,7 +19,11 @@ const {
   deleteLesson,
   publishCourse,
   unpublishCourse,
+  courses,
 } = require("../controllers/course");
+
+// Router Courses
+router.get("/courses", courses);
 
 // Router Image
 router.post("/course/upload-image", uploadImage);

@@ -47,9 +47,10 @@ const CourseView = () => {
         `/api/course/lesson/${slug}/${course.instructor._id}`,
         values
       );
-      setValues("");
-      setVisible(false);
+      setValues({ ...values, title: "", content: "", video: {} });
+      setProgress(0);
       setUploadButtonText("Upload video");
+      setVisible(false);
       setCourse(data);
       toast.success("Lesson added");
     } catch (err) {

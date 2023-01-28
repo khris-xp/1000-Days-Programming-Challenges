@@ -299,6 +299,13 @@ const unpublishCourse = async (req, res) => {
   }
 };
 
+const courses = async (req, res) => {
+  const allCourses = await Course.find({ published: true })
+    .populate("instructor", "_id name")
+    .exec();
+  res.json(allCourses);
+};
+
 module.exports = {
   uploadImage,
   removeImage,
@@ -312,4 +319,5 @@ module.exports = {
   deleteLesson,
   publishCourse,
   unpublishCourse,
+  courses,
 };
