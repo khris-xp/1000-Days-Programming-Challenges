@@ -1,8 +1,15 @@
 import { Badge } from "antd";
 import currencyFormatter from "../../utils/helpers";
 import Image from "next/image";
+import PlayCircleFilled from "@ant-design/icons";
 
-const SingleCourseJumbotron = ({ course }) => {
+const SingleCourseJumbotron = ({
+  course,
+  showModal,
+  setShowModal,
+  preview,
+  setPreview,
+}) => {
   const {
     name,
     description,
@@ -41,10 +48,24 @@ const SingleCourseJumbotron = ({ course }) => {
           </div>
           <div className="col-md-4">
             {lessons[0].video && lessons[0].video.Location ? (
-              <div>
-                <video loop controls height={225} className="react-player-div">
-                  <source src={lessons[0].video.Location} />
-                </video>
+              <div
+                style={{
+                  backgroundImage: "url(" + image.Location + ")",
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                  marginBottom: "25px",
+                }}
+                className="d-flex justify-content-center"
+                onClick={() => {
+                  setPreview(lessons[0].video.Location);
+                  setShowModal(!showModal);
+                }}
+              >
+                <PlayCircleFilled
+                  className="align-self-center display-4 text-light"
+                  style={{ padding: "90px 90px 90px 90px" }}
+                />
               </div>
             ) : (
               <Image
