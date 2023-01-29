@@ -1,5 +1,6 @@
 import { Button, Progress, Switch } from "antd";
 import ReactPlayer from "react-player";
+import { Player } from "video-react";
 
 const UpdateLessonForm = ({
   current,
