@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import CourseCard from "../components/cards/CourseCard";
 
-const Home = ({ courses }) => {
+const Home = ({ course }) => {
   return (
     <>
       <h1 className="jumbotron square text-center">E Learning Marketplace</h1>
       <div className="container-fluid">
         <div className="row pt-2">
-          {courses.map((course) => (
+          {course.map((course) => (
             <div key={course._id} className="col-md-4">
               <CourseCard course={course} />
             </div>
@@ -19,13 +19,13 @@ const Home = ({ courses }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/courses`);
+export const getServerSideProps = async () => {
+  const { data } = await axios.get(`${process.env.API}/course`);
   return {
     props: {
-      courses: data,
+      course: data,
     },
   };
-}
+};
 
 export default Home;

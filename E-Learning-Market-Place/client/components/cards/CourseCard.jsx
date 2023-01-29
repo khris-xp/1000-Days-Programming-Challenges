@@ -9,7 +9,6 @@ const CourseCard = ({ course }) => {
   return (
     <>
       <Link href={`/course/${slug}`}>
-        <>
           <Card
             className="mb-4"
             cover={
@@ -36,8 +35,7 @@ const CourseCard = ({ course }) => {
                 : "Free"}
             </h4>
           </Card>
-        </>
-      </Link>
+        </Link>
     </>
   );
 };
