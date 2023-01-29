@@ -64,12 +64,12 @@ const UpdateLessonForm = ({
           <Switch
             className="float-right mt-2"
             disabled={uploading}
-            defaultChecked={current.free_preview}
+            checked={current.free_preview}
             name="fee_preview"
             onChange={(v) => setCurrent({ ...current, free_preview: v })}
           />
         </div>
-
+        
         <Button
           onClick={handleUpdateLesson}
           className="col mt-3"
