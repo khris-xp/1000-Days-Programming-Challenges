@@ -5,32 +5,28 @@ import (
 )
 
 func main() {
-	var student1 string = "John"
-	var student2 = "Jane"
-
-	fmt.Println(student1)
-	fmt.Println(student2)
-
+	var arr1 = [4]string{"Hello", "John", "Doe", "Jane"}
+	fmt.Println(arr1)
 	exercise1()
-	// exercise2()
-	// exercise3()
-	// exercise4()
+	exercise2()
+	exercise3()
 }
 
 func exercise1() {
-	var myNum int = 50
-	var myWord string = "Hello"
-	var myBool bool = true
-
-	fmt.Println(myNum)
-	fmt.Println(myWord)
-	fmt.Println(myBool)
+	var cars = [4]string{"Volvo", "BMW", "Ford", "Mazda"}
+	fmt.Println(cars)
 }
 
-// func exercise2() {
-// 	var myWord string = "Hello!"
-// 	fmt.Println(myWord)
-// }
+func exercise2() {
+	var cars = [4]string{"Volvo", "BMW", "Ford", "Mazda"}
+	fmt.Println(cars[1])
+}
+
+func exercise3() {
+	var cars = [4]string{"Volvo", "BMW", "Ford", "Mazda"}
+	cars[0] = "Opel"
+	fmt.Println(cars)
+}
 
 // func exercise3() {
 // 	var x = 5
