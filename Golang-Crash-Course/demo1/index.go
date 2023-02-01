@@ -4,11 +4,8 @@ import (
 	"fmt"
 )
 
-func test() {
-	fmt.Println("Test Function")
-}
-
 func main() {
-	fmt.Println("Hello Golang")
-	test()
+	//This is a comment
+	/* Multiple comment Line */
+	fmt.Println("Hello World!")
 }
