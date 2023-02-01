@@ -5,10 +5,10 @@ import (
 )
 
 func test() {
-	fmt.Println("Test Function");
+	fmt.Println("Test Function")
 }
 
 func main() {
-	fmt.Println("Hello Golang");
-	test();
+	fmt.Println("Hello Golang")
+	test()
 }
