@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import SingleCourseJumbotron from "../../components/cards/SingleCourseJumbotron";
@@ -13,10 +13,23 @@ const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
+  const [enrolled, setEnrolled] = useState({});
 
   const {
     state: { user },
   } = useContext(Context);
+
+  useEffect(() => {
+    if (user && course) {
+      checkEnrollment();
+    }
+  }, [user, course]);
+
+  const checkEnrollment = async () => {
+    const { data } = await axios.get(`/api/check-enrollment/${course._id}`);
+    console.log("CHECK ENROLLMENT", data);
+    setEnrolled(data);
+  };
 
   const handlePaidEnrollment = () => {
     console.log("Handle Paid Enrollment");
@@ -38,6 +51,8 @@ const SingleCourse = ({ course }) => {
         loading={loading}
         handleFreeEnrollment={handleFreeEnrollment}
         handlePaidEnrollment={handlePaidEnrollment}
+        enrolled={enrolled}
+        setEnrolled={setEnrolled}
       />
       <PreviewModal
         showModal={showModal}

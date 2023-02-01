@@ -3,6 +3,7 @@ var { nanoid: ID, nanoid } = require("nanoid");
 const Course = require("../models/course");
 const slugify = require("slugify");
 const fs = require("fs");
+const User = require("../models/user");
 
 const awsConfig = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -308,9 +309,10 @@ const courses = async (req, res) => {
 
 const checkEnrollment = async (req, res) => {
   const { courseId } = req.params;
-  const user = await user.findById(req.user._id).exec();
+  const user = await User.findById(req.user._id).exec();
   let ids = [];
-  for (let i = 0; i < user.courses.length; i++) {
+  let length = user.courses && user.courses.length;
+  for (let i = 0; i < length; i++) {
     ids.push(user.courses[i].toString());
   }
   res.json({
