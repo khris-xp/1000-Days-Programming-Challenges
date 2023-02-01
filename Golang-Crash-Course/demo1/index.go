@@ -12,29 +12,34 @@ func main() {
 	fmt.Println(student2)
 
 	exercise1()
-	exercise2()
-	exercise3()
-	exercise4()
+	// exercise2()
+	// exercise3()
+	// exercise4()
 }
 
 func exercise1() {
 	var myNum int = 50
+	var myWord string = "Hello"
+	var myBool bool = true
+
 	fmt.Println(myNum)
-}
-
-func exercise2() {
-	var myWord string = "Hello!"
 	fmt.Println(myWord)
+	fmt.Println(myBool)
 }
 
-func exercise3() {
-	var x = 5
-	var y = 10
-	var z = x + y
-	fmt.Println(z)
-}
+// func exercise2() {
+// 	var myWord string = "Hello!"
+// 	fmt.Println(myWord)
+// }
 
-func exercise4() {
-	var x, y, z = 5, 10, 15
-	fmt.Println(x, y, z)
-}
+// func exercise3() {
+// 	var x = 5
+// 	var y = 10
+// 	var z = x + y
+// 	fmt.Println(z)
+// }
+
+// func exercise4() {
+// 	var x, y, z = 5, 10, 15
+// 	fmt.Println(x, y, z)
+// }
