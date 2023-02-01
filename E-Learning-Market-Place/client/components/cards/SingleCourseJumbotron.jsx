@@ -1,7 +1,10 @@
-import { Badge } from "antd";
+import { Badge, Modal, Button } from "antd";
 import currencyFormatter from "../../utils/helpers";
 import Image from "next/image";
-import PlayCircleFilled from "@ant-design/icons";
+import PlayCircleFilled, {
+  LoadingOutlined,
+  SafetyOutlined,
+} from "@ant-design/icons";
 
 const SingleCourseJumbotron = ({
   course,
@@ -9,6 +12,10 @@ const SingleCourseJumbotron = ({
   setShowModal,
   preview,
   setPreview,
+  user,
+  loading,
+  handleFreeEnrollment,
+  handlePaidEnrollment,
 }) => {
   const {
     name,
@@ -55,6 +62,8 @@ const SingleCourseJumbotron = ({
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                   marginBottom: "25px",
+                  width: "100%",
+                  height: "225px",
                 }}
                 className="d-flex justify-content-center"
                 onClick={() => {
@@ -76,7 +85,24 @@ const SingleCourseJumbotron = ({
                 className="img-fluid img"
               />
             )}
-            <p>Enroll</p>
+            {loading ? (
+              <div className="d-flex justify-content-center">
+                <LoadingOutlined className="h1 text-danger" />
+              </div>
+            ) : (
+              <Button
+                className="mb-3"
+                type="danger"
+                block
+                shape="round"
+                icon={<SafetyOutlined />}
+                size="large"
+                disabled={loading}
+                onClick={paid ? handlePaidEnrollment : handleFreeEnrollment}
+              >
+                {user ? "Enroll" : "Login to Enroll"}
+              </Button>
+            )}
           </div>
         </div>
       </div>
