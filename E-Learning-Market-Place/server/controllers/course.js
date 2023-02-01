@@ -306,6 +306,19 @@ const courses = async (req, res) => {
   res.json(allCourses);
 };
 
+const checkEnrollment = async (req, res) => {
+  const { courseId } = req.params;
+  const user = await user.findById(req.user._id).exec();
+  let ids = [];
+  for (let i = 0; i < user.courses.length; i++) {
+    ids.push(user.courses[i].toString());
+  }
+  res.json({
+    status: ids.includes(courseId),
+    course: await Course.findById(courseId).exec(),
+  });
+};
+
 module.exports = {
   uploadImage,
   removeImage,
@@ -320,4 +333,5 @@ module.exports = {
   publishCourse,
   unpublishCourse,
   courses,
+  checkEnrollment,
 };

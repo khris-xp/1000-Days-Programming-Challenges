@@ -20,6 +20,7 @@ const {
   publishCourse,
   unpublishCourse,
   courses,
+  checkEnrollment,
 } = require("../controllers/course");
 
 // Router Courses
@@ -49,5 +50,8 @@ router.post("/course/video-remove/:instructorId", requireSignin, removeVideo);
 router.post("/course/lesson/:slug/:instructorId", requireSignin, createLesson);
 router.put("/course/:slug/:lessonId", requireSignin, deleteLesson);
 router.put("/course/lesson/:slug/:instructorId", requireSignin, updateLesson);
+
+// Check Enrollment
+router.get("/check-enrollment/:courseId", requireSignin, checkEnrollment);
 
 module.exports = router;
