@@ -5,6 +5,7 @@ import SingleCourseJumbotron from "../../components/cards/SingleCourseJumbotron"
 import PreviewModal from "../../components/modal/PreviewModal";
 import SingleCourseLesson from "../../components/cards/SIngleCourseComponent";
 import { Context } from "../../context/index";
+import toast from "react-toastify";
 
 const SingleCourse = ({ course }) => {
   const router = useRouter();
@@ -31,8 +32,17 @@ const SingleCourse = ({ course }) => {
     setEnrolled(data);
   };
 
-  const handlePaidEnrollment = () => {
-    console.log("Handle Paid Enrollment");
+  const handlePaidEnrollment = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const { data } = await axios.post(`/api/free-enrollment/${course._id}`);
+      toast.success(data.message);
+    } catch (err) {
+      toast.error("Enrollment failed. Try again");
+      console.log(err);
+      setLoading(false);
+    }
   };
 
   const handleFreeEnrollment = () => {

@@ -321,6 +321,31 @@ const checkEnrollment = async (req, res) => {
   });
 };
 
+const freeEnrollment = async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.courseId).exec();
+    if (course.paid) {
+      return;
+    }
+
+    const result = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        $addToSet: { courses: course._id },
+      },
+      { new: true }
+    ).exec();
+
+    res.json({
+      message: "Congratulations! You have successfully enrolled",
+      course: result,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Enrollment create Failed");
+  }
+};
+
 module.exports = {
   uploadImage,
   removeImage,
@@ -336,4 +361,5 @@ module.exports = {
   unpublishCourse,
   courses,
   checkEnrollment,
+  freeEnrollment,
 };
