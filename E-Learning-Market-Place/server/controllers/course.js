@@ -346,6 +346,10 @@ const freeEnrollment = async (req, res) => {
   }
 };
 
+const paidEnrollment = async (req, res) => {
+  console.log("Paid Enrollment");
+};
+
 module.exports = {
   uploadImage,
   removeImage,
@@ -362,4 +366,5 @@ module.exports = {
   courses,
   checkEnrollment,
   freeEnrollment,
+  paidEnrollment,
 };
