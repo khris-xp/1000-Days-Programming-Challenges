@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const UserNav = () => {
+const UserNav = ({ showNav = true }) => {
   const [current, setCurrent] = useState("");
 
   useEffect(() => {

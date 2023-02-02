@@ -391,7 +391,6 @@ const paidEnrollment = async (req, res) => {
       stripeSession: session,
     }).exec();
     res.send(session.id);
-    console.log(session.id);
   } catch (err) {
     console.log("PAID ENROLLMENT ERR", err);
     res.status(400).send("ENROLLMENT create failed");
