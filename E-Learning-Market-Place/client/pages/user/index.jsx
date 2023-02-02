@@ -9,9 +9,20 @@ const UserIndex = () => {
     state: { user },
   } = useContext(Context);
 
+  const [courses, setCourses] = useState([]);
+
+  const loadCourses = async () => {
+    const { data } = await axios.get("/api/user-courses");
+  };
+
+  useEffect(() => {
+    loadCourses();
+  }, []);
+
   return (
     <UserRoute>
       <h1 className="jumbotron text-center square">User Dashboard</h1>
+      <div>{JSON.stringify(courses, null, 4)}</div>
     </UserRoute>
   );
 };
