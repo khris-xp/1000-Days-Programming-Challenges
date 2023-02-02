@@ -5,17 +5,21 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 const StripeSuccess = () => {
+  // router
   const router = useRouter();
-  const { id } = router.query();
+  const { id } = router.query;
+
+  useEffect(() => {
+    if (id) successRequest();
+  }, [id]);
+
+  console.log(id);
 
   const successRequest = async () => {
     const { data } = await axios.get(`/api/stripe-success/${id}`);
-    router.push(`/user/course/${data.slug}`);
+    // console.log("SUCCESS REQ DATA", data);
+    router.push(`/user/course/${data.course.slug}`);
   };
-
-  useEffect(() => {
-    successRequest();
-  }, [id]);
 
   return (
     <UserRoute showNav={false}>
@@ -25,6 +29,7 @@ const StripeSuccess = () => {
             <SyncOutlined spin className="display-1 text-danger p-5" />
           </div>
         </div>
+        <div className="col-md-3"></div>
       </div>
     </UserRoute>
   );

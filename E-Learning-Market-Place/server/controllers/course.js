@@ -393,7 +393,35 @@ const paidEnrollment = async (req, res) => {
     res.send(session.id);
   } catch (err) {
     console.log("PAID ENROLLMENT ERR", err);
-    res.status(400).send("ENROLLMENT create failed");
+    return res.status(400).send("ENROLLMENT create failed");
+  }
+};
+
+const stripeSuccess = async (req, res) => {
+  try {
+    // Find Course
+    const course = await Course.findById(req.params.courseId).exec();
+    // Find User
+    const user = await User.findById(req.user._id).exec();
+
+    if (!user.stripeSession.id) {
+      return res.sendStatus(400);
+    }
+
+    const session = await stripe.checkout.sessions.retrieve(
+      user.stripeSession.id
+    );
+
+    if (session.payment_status === "paid") {
+      await User.findByIdAndUpdate(user._id, {
+        $addToSet: { courses: course._id },
+        $set: { stripeSession: {} },
+      }).exec();
+    }
+    res.json({ success: false });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false });
   }
 };
 
@@ -414,4 +442,5 @@ module.exports = {
   checkEnrollment,
   freeEnrollment,
   paidEnrollment,
+  stripeSuccess,
 };
