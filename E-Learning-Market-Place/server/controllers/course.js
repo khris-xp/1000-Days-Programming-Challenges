@@ -360,23 +360,27 @@ const paidEnrollment = async (req, res) => {
     const fee = (course.price * 30) / 100;
 
     // Create stripe session
-    const session = await stripe.checkout.session.create({
+    const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
         {
-          name: course.name,
-          amount: Math.round(course.price.toFixed(2) * 100),
-          currency: "usd",
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: course.name,
+            },
+            unit_amount: Math.round(course.price.toFixed(2) * 100),
+          },
           quantity: 1,
         },
       ],
+      mode: "payment",
       payment_intent_data: {
         application_fee_amount: Math.round(course.price.toFixed(2) * 100),
         transfer_data: {
           destination: course.instructor.stripe_account_id,
         },
       },
-
       // Redirect when payment success
       success_url: `${process.env.STRIPE_SUCCESS_URL}/${course._id}`,
       cancel_url: process.env.STRIPE_CANCEL_URL,
@@ -387,6 +391,7 @@ const paidEnrollment = async (req, res) => {
       stripeSession: session,
     }).exec();
     res.send(session.id);
+    console.log(session.id);
   } catch (err) {
     console.log("PAID ENROLLMENT ERR", err);
     res.status(400).send("ENROLLMENT create failed");
