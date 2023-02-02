@@ -418,10 +418,22 @@ const stripeSuccess = async (req, res) => {
         $set: { stripeSession: {} },
       }).exec();
     }
-    res.json({ success: false });
+    res.json({ success: true });
   } catch (err) {
     console.log(err);
     res.json({ success: false });
+  }
+};
+
+const userCourses = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).exec();
+    const courses = await Course.find({ _id: { $in: user.courses } })
+      .populate("instructor", "_id name")
+      .exec();
+    res.json(courses);
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -443,4 +455,5 @@ module.exports = {
   freeEnrollment,
   paidEnrollment,
   stripeSuccess,
+  userCourses,
 };
