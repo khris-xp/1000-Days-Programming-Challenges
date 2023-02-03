@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import StudentRoute from "../../../components/routes/StudentRoute";
 
 const SingleCourse = () => {
   // State
@@ -12,7 +13,7 @@ const SingleCourse = () => {
   const { slug } = router.query;
 
   const loadCourse = async () => {
-    const { data } = await axios.get(`/api/user/course/${slug}`);
+    const { data } = await axios.get(`/api/course/${slug}`);
     setCourse(data);
   };
 
@@ -23,9 +24,9 @@ const SingleCourse = () => {
   }, [slug]);
 
   return (
-    <div>
-      <h1>{JSON.stringify(course, null, 4)}</h1>
-    </div>
+    <StudentRoute>
+      <div>{JSON.stringify(course, null, 4)}</div>
+    </StudentRoute>
   );
 };
 
