@@ -1,8 +1,15 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createElement } from "react";
 import axios from "axios";
 import StudentRoute from "../../../components/routes/StudentRoute";
 import { Button, Menu, Avatar } from "antd";
+import ReactPlayer from "react-player";
+import ReactMarkdown from "react-markdown";
+import {
+  PlayCircleOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 
 const SingleCourse = () => {
   // State
@@ -30,6 +37,13 @@ const SingleCourse = () => {
     <StudentRoute>
       <div className="row">
         <div style={{ maxWidth: 320 }}>
+          <Button
+            onClick={() => setCollapsed(!collapsed)}
+            className="text-primary mt-1 btn-block mb-2"
+          >
+            {createElement(collapsed ? MenuFoldOutlined : MenuFoldOutlined)}{" "}
+            {!collapsed && "Lessons"}
+          </Button>
           <Menu
             defaultSelectedKeys={[clicked]}
             inlineCollapsed={collapsed}
@@ -49,9 +63,33 @@ const SingleCourse = () => {
 
         <div className="col">
           {clicked !== -1 ? (
-            <>{JSON.stringify(course.lessons[clicked])}</>
+            <>
+              {course.lessons[clicked].video &&
+                course.lessons[clicked].video.Location && (
+                  <>
+                    <div className="wrapper">
+                      <ReactPlayer
+                        className="player"
+                        url={course.lessons[clicked].video.Location}
+                        width="100%"
+                        height="100%"
+                        controls
+                      />
+                    </div>
+                  </>
+                )}
+              <ReactMarkdown
+                source={course.lessons[clicked].content}
+                className="single-post"
+              />
+            </>
           ) : (
-            <>CLick on the lesson on start learning</>
+            <div className="d-flex justify-content-center p-5">
+              <div className="text-center p-5">
+                <PlayCircleOutlined className="text-primary display-1 p-5" />
+                <p className="lead">CLick on the lesson on start learning</p>
+              </div>
+            </div>
           )}
         </div>
       </div>
