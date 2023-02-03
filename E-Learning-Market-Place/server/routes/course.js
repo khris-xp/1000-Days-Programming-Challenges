@@ -3,7 +3,7 @@ const formidable = require("express-formidable");
 const router = express.Router();
 
 // middleware
-const { requireSignin, isInstructor } = require("../middleware");
+const { requireSignin, isInstructor, isEnrolled } = require("../middleware");
 
 // Comtrollers
 const {
@@ -63,4 +63,5 @@ router.get("/stripe-success/:courseId", requireSignin, stripeSuccess);
 
 // Courses
 router.get("/user-courses", requireSignin, userCourses);
+router.get("/course/:slug", requireSignin, isEnrolled, readCourse);
 module.exports = router;

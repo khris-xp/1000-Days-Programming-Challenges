@@ -12,7 +12,7 @@ const SingleCourse = () => {
   const { slug } = router.query;
 
   const loadCourse = async () => {
-    const { data } = await axios.get(`/api/course/${slug}`);
+    const { data } = await axios.get(`/api/user/course/${slug}`);
     setCourse(data);
   };
 
@@ -24,7 +24,7 @@ const SingleCourse = () => {
 
   return (
     <div>
-      <h1>Course slug is : {JSON.stringify(course, null, 4)}</h1>
+      <h1>{JSON.stringify(course, null, 4)}</h1>
     </div>
   );
 };
