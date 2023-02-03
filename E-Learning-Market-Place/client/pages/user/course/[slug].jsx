@@ -27,6 +27,14 @@ const SingleCourse = () => {
     setCourse(data);
   };
 
+  const markCompleted = async () => {
+    // console.log("Mark Completed");
+    const { data } = await axios.post(`/api/mark-complete`, {
+      courseId: course._id,
+      lessonId: course.lessons[clicked]._id,
+    });
+  };
+
   useEffect(() => {
     if (slug) {
       loadCourse();
@@ -64,6 +72,13 @@ const SingleCourse = () => {
         <div className="col">
           {clicked !== -1 ? (
             <>
+              <div className="col alert alert-primary square">
+                <b>{course.lessons[clicked].title.substring(0, 30)}</b>
+                <span className="float-right pointer" onClick={markCompleted}>
+                  Mark as completed
+                </span>
+              </div>
+
               {course.lessons[clicked].video &&
                 course.lessons[clicked].video.Location && (
                   <>
