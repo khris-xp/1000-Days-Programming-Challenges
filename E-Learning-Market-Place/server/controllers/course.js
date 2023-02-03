@@ -5,6 +5,7 @@ const slugify = require("slugify");
 const fs = require("fs");
 const User = require("../models/user");
 const stripe = require("stripe").Stripe(process.env.STRIPE_SECRET);
+const Completed = require("../models/completed");
 
 const awsConfig = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -437,6 +438,36 @@ const userCourses = async (req, res) => {
   }
 };
 
+const markCompleted = async (req, res) => {
+  const { courseId, lessonId } = req.body;
+
+  const existing = await Completed.findOne({
+    user: req.user._id,
+    course: courseId,
+  }).exec();
+
+  if (existing) {
+    const updated = await Completed.findOneAndUpdate(
+      {
+        user: req.user._id,
+        course: courseId,
+      },
+      {
+        $addToSet: { lessons: lessonId },
+      }
+    ).exec();
+    res.json({ ok: true });
+  } else {
+    const created = await new Completed({
+      user: req.user._id,
+      course: courseId,
+      lessons: lessonId,
+    }).save();
+
+    res.json({ ok: true });
+  }
+};
+
 module.exports = {
   uploadImage,
   removeImage,
@@ -456,4 +487,5 @@ module.exports = {
   paidEnrollment,
   stripeSuccess,
   userCourses,
+  markCompleted,
 };
