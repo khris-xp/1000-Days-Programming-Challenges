@@ -1,12 +1,32 @@
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const SignleCourse = () => {
+const SingleCourse = () => {
+  // State
+  const [loading, setLoading] = useState(false);
+  const [course, setCourse] = useState({ lessons: [] });
+
+  // Router
   const router = useRouter();
+  const { slug } = router.query;
+
+  const loadCourse = async () => {
+    const { data } = await axios.get(`/api/course/${slug}`);
+    setCourse(data);
+  };
+
+  useEffect(() => {
+    if (slug) {
+      loadCourse();
+    }
+  }, [slug]);
+
   return (
     <div>
-      <h1>Course slug is : {JSON.stringify(router.query.slug)}</h1>
+      <h1>Course slug is : {JSON.stringify(course, null, 4)}</h1>
     </div>
   );
 };
 
-export default SignleCourse;
+export default SingleCourse;
