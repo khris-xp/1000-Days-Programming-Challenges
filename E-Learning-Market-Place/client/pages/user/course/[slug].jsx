@@ -17,6 +17,7 @@ const SingleCourse = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({ lessons: [] });
+  const [completedLessons, setCompletedLessons] = useState([]);
 
   // Router
   const router = useRouter();
@@ -35,11 +36,24 @@ const SingleCourse = () => {
     });
   };
 
+  const loadCompletedLessons = async () => {
+    const { data } = await axios.get(`/api/list-completed`, {
+      courseId: course._id,
+    });
+    console.log("COMPLETED LESSOSN", data);
+  };
+
   useEffect(() => {
     if (slug) {
       loadCourse();
     }
   }, [slug]);
+
+  useEffect(() => {
+    if (course) {
+      loadCompletedLessons();
+    }
+  }, [course]);
 
   return (
     <StudentRoute>
