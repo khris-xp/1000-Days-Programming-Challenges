@@ -481,6 +481,26 @@ const listCompleted = async (req, res) => {
   }
 };
 
+const markIncompleted = async (req, res) => {
+  try {
+    const { courseId, lessonId } = req.body;
+
+    const updated = await Completed.findOneAndUpdate(
+      {
+        user: req.user._id,
+        course: courseId,
+      },
+      {
+        $pull: { lessons: lessonId },
+      }
+    ).exec();
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   uploadImage,
   removeImage,
@@ -501,5 +521,6 @@ module.exports = {
   stripeSuccess,
   userCourses,
   markCompleted,
+  markIncompleted,
   listCompleted,
 };

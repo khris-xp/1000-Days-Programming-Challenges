@@ -26,6 +26,7 @@ const {
   stripeSuccess,
   userCourses,
   markCompleted,
+  markIncompleted,
   listCompleted,
 } = require("../controllers/course");
 
@@ -70,5 +71,6 @@ router.get("/course/:slug", requireSignin, isEnrolled, readCourse);
 // Mark Completed
 router.post("/mark-completed", requireSignin, markCompleted);
 router.post("/list-completed", requireSignin, listCompleted);
+router.post("/list-incompleted", requireSignin, markIncompleted);
 
 module.exports = router;

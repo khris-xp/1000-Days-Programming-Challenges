@@ -9,6 +9,8 @@ import {
   PlayCircleOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  CheckCircleFilled,
+  MinusCircleFilled,
 } from "@ant-design/icons";
 
 const SingleCourse = () => {
@@ -30,14 +32,21 @@ const SingleCourse = () => {
 
   const markCompleted = async () => {
     // console.log("Mark Completed");
-    const { data } = await axios.post(`/api/mark-complete`, {
+    const { data } = await axios.post(`/api/mark-completed`, {
+      courseId: course._id,
+      lessonId: course.lessons[clicked]._id,
+    });
+  };
+
+  const markIncompleted = async () => {
+    const { data } = await axios.post(`/api/mark-incompleted`, {
       courseId: course._id,
       lessonId: course.lessons[clicked]._id,
     });
   };
 
   const loadCompletedLessons = async () => {
-    const { data } = await axios.get(`/api/list-completed`, {
+    const { data } = await axios.post(`/api/list-completed`, {
       courseId: course._id,
     });
     console.log("COMPLETED LESSOSN", data);
@@ -78,6 +87,17 @@ const SingleCourse = () => {
                 icon={<Avatar>{index + 1}</Avatar>}
               >
                 {lesson.title.substring(0, 30)}
+                {completedLessons.includes(lesson._id) ? (
+                  <CheckCircleFilled
+                    className="float-right text-primary ml-2"
+                    style={{ marginTop: "13px" }}
+                  />
+                ) : (
+                  <MinusCircleFilled
+                    className="float-right text-danger ml-2"
+                    style={{ marginTop: "13px" }}
+                  />
+                )}
               </Menu.Item>
             ))}
           </Menu>
@@ -88,9 +108,18 @@ const SingleCourse = () => {
             <>
               <div className="col alert alert-primary square">
                 <b>{course.lessons[clicked].title.substring(0, 30)}</b>
-                <span className="float-right pointer" onClick={markCompleted}>
-                  Mark as completed
-                </span>
+                {completedLessons.includes(course.lessons[clicked]._id) ? (
+                  <span
+                    className="float-right pointer"
+                    onClick={markIncompleted}
+                  >
+                    Mark as completed
+                  </span>
+                ) : (
+                  <span className="float-right pointer" onClick={markCompleted}>
+                    Mark as incompleted
+                  </span>
+                )}
               </div>
 
               {course.lessons[clicked].video &&
