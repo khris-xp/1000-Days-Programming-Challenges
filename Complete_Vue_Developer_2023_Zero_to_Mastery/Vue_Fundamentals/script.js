@@ -1,4 +1,4 @@
-Vue.createApp({
+const vm = Vue.createApp({
   data() {
     return {
       firstName: "John",
@@ -6,14 +6,9 @@ Vue.createApp({
       classApp: "App 1",
     };
   },
-}).mount(".app");
+}).mount("#app");
 
-// Vue.createApp({
-//   data() {
-//     return {
-//       firstName: "John",
-//       lastName: "Doe",
-//       classApp: "App 2",
-//     };
-//   },
-// }).mount(".app2");
+setTimeout(() => {
+  // vm.firstName = "Bob"; -> With Proxy
+  vm.$data.firstName = "Bob"; // Without a Proxy
+}, 2000);
