@@ -6,9 +6,14 @@ const vm = Vue.createApp({
       classApp: "App 1",
     };
   },
+  methods: {
+    fullName() {
+      return `${this.firstName} ${this.lastName.toUpperCase()}`;
+    },
+  },
 }).mount("#app");
 
-setTimeout(() => {
-  // vm.firstName = "Bob"; -> With Proxy
-  vm.$data.firstName = "Bob"; // Without a Proxy
-}, 2000);
+// setTimeout(() => {
+//   // vm.firstName = "Bob"; -> With Proxy
+//   vm.$data.firstName = "Bob"; // Without a Proxy
+// }, 2000);
