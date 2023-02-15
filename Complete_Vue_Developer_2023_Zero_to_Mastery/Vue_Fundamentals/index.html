@@ -10,13 +10,14 @@
   <body>
     <div id="app" v-cloak>
       <p>{{ fullName() }}</p>
+      <!-- <p><a v-bind:href="url">Example.com</a></p> -->
+      <p><a :href="url">Example.com</a></p>
       <hr />
-
       <label>First Name</label>
       <input type="text" v-model="firstName" />
       <label>Last Name</label>
       <input type="text" v-model="lastName" />
-      <label>Class</label>
+      <label>Class Name</label>
       <input type="text" v-model="classApp" />
     </div>
 
