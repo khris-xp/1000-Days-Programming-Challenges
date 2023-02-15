@@ -14,13 +14,21 @@
       <p><a :href="url">Example.com</a></p>
       <!-- <p v-html="raw_url"></p> -->
       <p v-html="raw_url"></p>
+
+      {{ age }}
+
       <hr />
       <label>First Name</label>
       <input type="text" v-model="firstName" />
       <label>Last Name</label>
-      <input type="text" v-model="lastName" />
+      <input type="text" :value="lastName" @input="updateLastName"/>
       <label>Class Name</label>
       <input type="text" v-model="classApp" />
+
+      <!-- <button type="button" v-on:click="increment">Increment</button>
+      <button type="button" v-on:click="age--">Decrement</button> -->
+      <button type="button" @click="increment">Increment</button>
+      <button type="button" @click="age--">Decrement</button>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
