@@ -21,7 +21,11 @@
       <label>First Name</label>
       <input type="text" v-model="firstName" />
       <label>Last Name</label>
-      <input type="text" :value="lastName" @input="updateLastName"/>
+      <input
+        type="text"
+        :value="lastName"
+        @input="updateLastName('Last name event Trigged!', $event)"
+      />
       <label>Class Name</label>
       <input type="text" v-model="classApp" />
 
