@@ -7,13 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-fundamental';
-  name = 'Khris Bharmmano';
-
-  buttonClick() {
-    console.log(this.name);
-  }
-
-  changeName(name: string) {
-    this.name = name;
+  value = 0;
+  calBuffet(value: string) {
+    this.value = (Number(value) * 3) / 4;
   }
 }

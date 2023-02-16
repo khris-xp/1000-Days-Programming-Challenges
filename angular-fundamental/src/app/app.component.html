@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
+    <title>Angular Fundamental</title>
   </head>
   <body>
-    <div>Hello World!</div>
-    <hr />
-    <h1>{{ name }}</h1>
-    <button (click)="buttonClick()">Click Me</button>
-    <button (click)="changeName('Paul')">Click to change name</button>
+    <span>มา 4 จ่าย 3</span>
+    <div>
+      <input placeholder="ราคา" type="text" #priceBuffetInput />
+      <button (click)="calBuffet(priceBuffetInput.value)">Calculate</button>
+    </div>
+    <span>คนละ {{ value }} บาท</span>
   </body>
 </html>
