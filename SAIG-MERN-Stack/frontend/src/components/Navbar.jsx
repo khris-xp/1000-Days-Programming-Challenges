@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
@@ -8,9 +9,9 @@ const Navbar = () => {
             <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
-                        <a href="javascript:void(0)">
+                        <Link to="/">
                             <h2 className="text-2xl font-bold text-white">LOGO</h2>
-                        </a>
+                        </Link>
                         <div className="md:hidden">
                             <button
                                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -56,48 +57,16 @@ const Navbar = () => {
                     >
                         <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                             <li className="text-white hover:text-indigo-200">
-                                <a href="javascript:void(0)">Home</a>
+                                <Link to="/">Home</Link>
                             </li>
                             <li className="text-white hover:text-indigo-200">
-                                <a href="javascript:void(0)">Blog</a>
+                                <Link to="/blog">Blog</Link>
                             </li>
                             <li className="text-white hover:text-indigo-200">
-                                <a href="javascript:void(0)">About US</a>
-                            </li>
-                            <li className="text-white hover:text-indigo-200">
-                                <a href="javascript:void(0)">Contact US</a>
+                                <Link to="/contact">Contact</Link>
                             </li>
                         </ul>
-
-                        <div className="mt-3 space-y-2 lg:hidden md:inline-block">
-                            <a
-                                href="javascript:void(0)"
-                                className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
-                            >
-                                Sign in
-                            </a>
-                            <a
-                                href="javascript:void(0)"
-                                className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-                            >
-                                Sign up
-                            </a>
-                        </div>
                     </div>
-                </div>
-                <div className="hidden space-x-2 md:inline-block">
-                    <a
-                        href="javascript:void(0)"
-                        className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
-                    >
-                        Sign in
-                    </a>
-                    <a
-                        href="javascript:void(0)"
-                        className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-                    >
-                        Sign up
-                    </a>
                 </div>
             </div>
         </nav>

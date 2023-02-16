@@ -474,7 +474,6 @@ const listCompleted = async (req, res) => {
       user: req.user._id,
       course: req.body.courseId,
     }).exec();
-
     list && res.json(list.lessons);
   } catch (err) {
     console.log(err);
@@ -494,7 +493,6 @@ const markIncompleted = async (req, res) => {
         $pull: { lessons: lessonId },
       }
     ).exec();
-
     res.json({ ok: true });
   } catch (err) {
     console.log(err);

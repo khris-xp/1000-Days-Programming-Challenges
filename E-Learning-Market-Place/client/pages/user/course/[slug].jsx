@@ -20,6 +20,7 @@ const SingleCourse = () => {
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({ lessons: [] });
   const [completedLessons, setCompletedLessons] = useState([]);
+  const [updateState, setUpdateState] = useState(false);
 
   // Router
   const router = useRouter();
@@ -31,18 +32,33 @@ const SingleCourse = () => {
   };
 
   const markCompleted = async () => {
-    // console.log("Mark Completed");
     const { data } = await axios.post(`/api/mark-completed`, {
       courseId: course._id,
       lessonId: course.lessons[clicked]._id,
     });
+    console.log(data);
+    setCompletedLessons([...completedLessons, course.lessons[clicked]._id]);
   };
 
   const markIncompleted = async () => {
-    const { data } = await axios.post(`/api/mark-incompleted`, {
-      courseId: course._id,
-      lessonId: course.lessons[clicked]._id,
-    });
+    try {
+      const { data } = await axios.post(`/api/mark-incompleted`, {
+        courseId: course._id,
+        lessonId: course.lessons[clicked]._id,
+      });
+      console.log(data);
+      const all = completedLessons;
+      console.log("ALL => ", all);
+      const index = all.indexOf(course.lessons[clicked]._id);
+      if (index > -1) {
+        all.splice(index, 1);
+        console.log("ALL WITHOUT REMOVED => ", all);
+        setCompletedLessons(all);
+        setUpdateState(!updateState);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const loadCompletedLessons = async () => {
@@ -113,11 +129,11 @@ const SingleCourse = () => {
                     className="float-right pointer"
                     onClick={markIncompleted}
                   >
-                    Mark as completed
+                    Mark as incompleted
                   </span>
                 ) : (
                   <span className="float-right pointer" onClick={markCompleted}>
-                    Mark as incompleted
+                    Mark as completed
                   </span>
                 )}
               </div>
@@ -132,6 +148,7 @@ const SingleCourse = () => {
                         width="100%"
                         height="100%"
                         controls
+                        onEnded={() => markCompleted()}
                       />
                     </div>
                   </>

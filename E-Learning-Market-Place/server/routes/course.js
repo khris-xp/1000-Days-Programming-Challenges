@@ -71,6 +71,6 @@ router.get("/course/:slug", requireSignin, isEnrolled, readCourse);
 // Mark Completed
 router.post("/mark-completed", requireSignin, markCompleted);
 router.post("/list-completed", requireSignin, listCompleted);
-router.post("/list-incompleted", requireSignin, markIncompleted);
+router.post("/mark-incompleted", requireSignin, markIncompleted);
 
 module.exports = router;

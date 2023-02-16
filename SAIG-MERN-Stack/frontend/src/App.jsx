@@ -1,14 +1,22 @@
-import { useState } from 'react'
 import Navbar from './components/Navbar'
+import Blog from './pages/Blog'
+import Contact from './pages/Contact'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </div>
+    <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navbar />}>
+          <Route index element={<Home />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </>
   )
 }
 
