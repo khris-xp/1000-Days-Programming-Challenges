@@ -9,6 +9,7 @@ export class AppComponent {
   title = 'angular-fundamental';
   squareHeight: number = 200;
   squareWidth: number = 200;
+  activate: boolean = false;
 
   appCounter: number = 20;
 }

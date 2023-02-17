@@ -13,5 +13,10 @@
       [divWidth]="appCounter"
       [divHeight]="squareHeight"
     ></app-square-flex>
+    <app-action-bar *ngIf="activate"></app-action-bar>
+    <br />
+    <button type="text" (click)="activate = !activate">
+      {{ activate ? "Activated" : "Unactivated" }}
+    </button>
   </body>
 </html>
