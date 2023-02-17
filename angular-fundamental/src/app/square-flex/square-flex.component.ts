@@ -6,8 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./square-flex.component.css'],
 })
 export class SquareFlexComponent {
-  // divWidth: number = 400;
-  // divHeight: number = 400;
   @Input() divWidth: number = 0;
   @Input() divHeight: number = 0;
 }

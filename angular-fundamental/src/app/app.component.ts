@@ -7,14 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-fundamental';
-  squareHeight: number = 20;
-  squareWidth: number = 20;
+  squareHeight: number = 200;
+  squareWidth: number = 200;
 
-  doAppMaxChange(value: number): void {
-    console.log(`Do App Max Change Fucntion : ${value}`);
-  }
-
-  doAppMinChange(value: number): void {
-    console.log(`Do App Min Chnage Function : ${value}`);
-  }
+  appCounter: number = 20;
 }
