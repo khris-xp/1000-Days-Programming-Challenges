@@ -7,16 +7,16 @@
     <title>Angular Fundamental</title>
   </head>
   <body>
-    <app-action-bar [(counter)]="appCounter"></app-action-bar>
-    <hr />
-    <app-square-flex
-      [divWidth]="appCounter"
-      [divHeight]="squareHeight"
-    ></app-square-flex>
-    <app-action-bar *ngIf="activate"></app-action-bar>
-    <br />
-    <button type="text" (click)="activate = !activate">
-      {{ activate ? "Activated" : "Unactivated" }}
+    <!-- <div *ngIf="activate; else elseTemplate">
+      <app-action-bar></app-action-bar>
+    </div>
+    <ng-template #elseTemplate>
+      <div>Active Now</div>
+    </ng-template>
+    <button type="button" (click)="activate = true">Activate</button> -->
+    <app-action-bar [inputDisplay]="activate"></app-action-bar>
+    <button (click)="activate = !activate">
+      {{ activate ? "Bold" : "Light" }}
     </button>
   </body>
 </html>
