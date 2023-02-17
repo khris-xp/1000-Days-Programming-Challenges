@@ -7,15 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-fundamental';
-  value = 0;
-  calBuffet(value: string) {
-    this.value = (Number(value) * 3) / 4;
-  }
-  buttonClick(): void {
-    console.log('Button Click');
+
+  doAppMaxChange(value: number): void {
+    console.log(`Do App Max Change Fucntion : ${value}`);
   }
 
-  testNumberChange(event: number): void {
-    console.log(`Number is changed to ${event}`);
+  doAppMinChange(value: number): void {
+    console.log(`Do App Min Chnage Function : ${value}`);
   }
 }

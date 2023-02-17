@@ -7,24 +7,11 @@
     <title>Angular Fundamental</title>
   </head>
   <body>
-    <span>มา 4 จ่าย 3</span>
-    <div>
-      <input placeholder="ราคา" type="text" #priceBuffetInput />
-      <button (click)="calBuffet(priceBuffetInput.value)">Calculate</button>
-    </div>
-    <span>คนละ {{ value }} บาท</span>
-    <hr />
-    <app-action-bar
-      [step]="5"
-      (numberChange)="testNumberChange($event)"
-    ></app-action-bar>
-    <app-action-bar
-      [step]="10"
-      (numberChange)="testNumberChange($event)"
-    ></app-action-bar>
-
-    <div>
-      <button type="button" (click)="buttonClick()">Test Event Blinding</button>
-    </div>
+    <app-max-min-label
+      [minLabel]="'minLabel'"
+      [maxLabel]="'maxLabel'"
+      (maxChange)="doAppMaxChange($event)"
+      (minChange)="doAppMinChange($event)"
+    ></app-max-min-label>
   </body>
 </html>

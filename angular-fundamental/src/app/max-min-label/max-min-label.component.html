@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Max Min Label</title>
+  </head>
+  <body>
+    <div style="padding: 2px">
+      <label>{{ maxLabel }}</label>
+      <br />
+      <app-action-bar (numberChange)="doAppMaxChange($event)"></app-action-bar>
+    </div>
+
+    <div style="padding: 2px">
+      <label>{{ minLabel }}</label>
+      <br />
+      <app-action-bar (numberChange)="doAppMinChange($event)"></app-action-bar>
+    </div>
+  </body>
+</html>
