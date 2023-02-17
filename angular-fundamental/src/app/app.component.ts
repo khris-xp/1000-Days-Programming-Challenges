@@ -15,7 +15,7 @@ export class AppComponent {
     console.log('Button Click');
   }
 
-  testNumberChange(): void {
-    console.log('Test Number Change');
+  testNumberChange(event: number): void {
+    console.log(`Number is changed to ${event}`);
   }
 }

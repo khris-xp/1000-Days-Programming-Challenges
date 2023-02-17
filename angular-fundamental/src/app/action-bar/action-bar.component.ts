@@ -13,13 +13,13 @@ export class ActionBarComponent {
   decrease(): void {
     if (this.counter - this.step > -1) {
       this.counter -= this.step;
-      this.numberChange.emit();
+      this.numberChange.emit(this.counter);
     }
   }
   increase(): void {
     if (this.counter + this.step < 100) {
       this.counter += this.step;
-      this.numberChange.emit();
+      this.numberChange.emit(this.counter);
     }
   }
 }
