@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-fundamental';
+  squareHeight: number = 20;
+  squareWidth: number = 20;
 
   doAppMaxChange(value: number): void {
     console.log(`Do App Max Change Fucntion : ${value}`);

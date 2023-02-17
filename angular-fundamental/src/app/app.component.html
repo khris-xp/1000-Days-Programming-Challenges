@@ -13,5 +13,22 @@
       (maxChange)="doAppMaxChange($event)"
       (minChange)="doAppMinChange($event)"
     ></app-max-min-label>
+    <hr />
+    <app-square-flex
+      [divWidth]="squareWidth"
+      [divHeight]="squareHeight"
+    ></app-square-flex>
+    <div style="padding: 10px">
+      <label>Width : </label>
+      <button (click)="squareWidth = 50">50px</button>
+      <button (click)="squareWidth = 100">100px</button>
+      <button (click)="squareWidth = 150">150px</button>
+    </div>
+    <div style="padding: 10px">
+      <label>Height : </label>
+      <button (click)="squareHeight = 50">50px</button>
+      <button (click)="squareHeight = 100">100px</button>
+      <button (click)="squareHeight = 150">150px</button>
+    </div>
   </body>
 </html>
