@@ -7,12 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-fundamental';
-  squareHeight: number = 200;
-  squareWidth: number = 200;
   activate: boolean = false;
-
   appCounter: number = 20;
 
   // Array
-  customerList: Array<string> = ['Customer1', 'Customer 2'];
+  customerList: Array<string> = ['Customer 1', 'Customer 2', 'Customer 3'];
+  
 }
