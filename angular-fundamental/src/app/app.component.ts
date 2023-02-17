@@ -12,4 +12,7 @@ export class AppComponent {
   activate: boolean = false;
 
   appCounter: number = 20;
+
+  // Array
+  customerList: Array<string> = ['Customer1', 'Customer 2'];
 }
