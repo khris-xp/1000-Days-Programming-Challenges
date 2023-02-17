@@ -14,7 +14,17 @@
     </div>
     <span>คนละ {{ value }} บาท</span>
     <hr />
-    <app-action-bar [step]="5"></app-action-bar>
-    <app-action-bar [step]="10"></app-action-bar>
+    <app-action-bar
+      [step]="5"
+      (numberChange)="testNumberChange()"
+    ></app-action-bar>
+    <app-action-bar
+      [step]="10"
+      (numberChange)="testNumberChange()"
+    ></app-action-bar>
+
+    <div>
+      <button type="button" (click)="buttonClick()">Test Event Blinding</button>
+    </div>
   </body>
 </html>

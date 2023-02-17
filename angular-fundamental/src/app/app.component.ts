@@ -11,4 +11,11 @@ export class AppComponent {
   calBuffet(value: string) {
     this.value = (Number(value) * 3) / 4;
   }
+  buttonClick(): void {
+    console.log('Button Click');
+  }
+
+  testNumberChange(): void {
+    console.log('Test Number Change');
+  }
 }
