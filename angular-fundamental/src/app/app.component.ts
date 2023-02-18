@@ -12,5 +12,11 @@ export class AppComponent {
 
   // Array
   customerList: Array<string> = ['Customer 1', 'Customer 2', 'Customer 3'];
-  
+  pushCustomerList(): void {
+    this.customerList.push(`Customer ${this.customerList.length + 1}`);
+  }
+
+  unShiftCustomerList(): void {
+    this.customerList.unshift(`Customer ${this.customerList.length + 1}`);
+  }
 }

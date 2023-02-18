@@ -16,10 +16,14 @@
       {{ customerList }}
     </div>
 
+    <!-- Array Customer List -->
     <div>
       <ul>
         <li *ngFor="let customer of customerList">{{ customer }}</li>
       </ul>
+      <button (click)="pushCustomerList()">Add Customer List</button>
+      <button (click)="unShiftCustomerList()">Unshift Customer List</button>
     </div>
+    <hr />
   </body>
 </html>
