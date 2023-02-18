@@ -19,7 +19,9 @@
     <!-- Array Customer List -->
     <div>
       <ul>
-        <li *ngFor="let customer of customerList">{{ customer }}</li>
+        <li *ngFor="let customer of customerList; let i = index">
+          {{ customer }} <button (click)="RemoveCustomerList(i)">Remove</button>
+        </li>
       </ul>
       <button (click)="pushCustomerList()">Add Customer List</button>
       <button (click)="unShiftCustomerList()">Unshift Customer List</button>

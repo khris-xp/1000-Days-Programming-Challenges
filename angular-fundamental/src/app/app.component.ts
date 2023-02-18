@@ -19,4 +19,9 @@ export class AppComponent {
   unShiftCustomerList(): void {
     this.customerList.unshift(`Customer ${this.customerList.length + 1}`);
   }
+
+  RemoveCustomerList(index: number) {
+    this.customerList.splice(index, 1);
+    console.log('Remove Customer List');
+  }
 }
