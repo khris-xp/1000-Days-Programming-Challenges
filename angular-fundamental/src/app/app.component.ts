@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'angular-fundamental';
+  title: string = 'angular-fundamental';
   activate: boolean = false;
   appCounter: number = 20;
 
@@ -20,7 +20,7 @@ export class AppComponent {
     this.customerList.unshift(`Customer ${this.customerList.length + 1}`);
   }
 
-  RemoveCustomerList(index: number) {
+  RemoveCustomerList(index: number): void {
     this.customerList.splice(index, 1);
     console.log('Remove Customer List');
   }
