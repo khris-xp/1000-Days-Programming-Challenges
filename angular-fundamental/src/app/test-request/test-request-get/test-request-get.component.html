@@ -1,1 +1,6 @@
-<div *ngFor="let item of todo">{{ item.id }} {{ item.title }}</div>
+<div>
+  <labeL>name: </labeL><input type="text" #usersInputText />
+  <button (click)="searchUserList(usersInputText.value)">ค้นหา</button>
+</div>
+
+<div *ngFor="let users of users">{{ users.id }} {{ users.name }}</div>

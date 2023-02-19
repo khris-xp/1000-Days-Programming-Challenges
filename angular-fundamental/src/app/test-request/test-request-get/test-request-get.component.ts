@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Users } from './test-request-get';
 
 @Component({
   selector: 'app-test-request-get',
@@ -7,14 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./test-request-get.component.css'],
 })
 export class TestRequestGetComponent {
-  todo: any;
+  users: Users[] = [];
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  searchUserList(name: string): void {
     this.http
-      .get('https://jsonplaceholder.typicode.com/todos')
-      .subscribe((data: any) => {
-        this.todo = data;
+      .get<Users[]>(`https://jsonplaceholder.typicode.com/users?name=${name}`)
+      .subscribe((data) => {
+        this.users = data;
       });
   }
 }
