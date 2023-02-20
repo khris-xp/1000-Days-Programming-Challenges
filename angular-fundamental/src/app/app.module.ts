@@ -9,7 +9,9 @@ import { MaxMinLabelComponent } from './max-min-label/max-min-label.component';
 import { SquareFlexComponent } from './square-flex/square-flex.component';
 import { TestRequestModule } from './test-request/test-request.module';
 import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
+import { CarsComponent } from './cars/cars.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     ActionBarComponent,
     MaxMinLabelComponent,
     SquareFlexComponent,
+    CarsComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     TestRequestModule,
     InputTextModule,
     FormsModule,
+    TableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

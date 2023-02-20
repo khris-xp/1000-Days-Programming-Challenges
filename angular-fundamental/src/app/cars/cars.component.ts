@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
+import { Car } from './cars.interface';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-cars',
+  templateUrl: './cars.component.html',
+  styleUrls: ['./cars.component.css'],
 })
-export class AppComponent {
-  title: string = 'angular-fundamental';
-  activate: boolean = false;
-  appCounter: number = 20;
-
-  // Cars
-  cars: any = [
+export class CarsComponent {
+  cars: Car[] = [
     { brand: 'Volkswagen', year: 2012, color: 'White', vin: 'dsad231ff' },
     { brand: 'Audi', year: 2011, color: 'Black', vin: 'gwregre345' },
     { brand: 'Renault', year: 2005, color: 'Gray', vin: 'h354htr' },
@@ -23,19 +19,4 @@ export class AppComponent {
     { brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
     { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' },
   ];
-
-  // Array
-  customerList: Array<string> = ['Customer 1', 'Customer 2', 'Customer 3'];
-  pushCustomerList(): void {
-    this.customerList.push(`Customer ${this.customerList.length + 1}`);
-  }
-
-  unShiftCustomerList(): void {
-    this.customerList.unshift(`Customer ${this.customerList.length + 1}`);
-  }
-
-  RemoveCustomerList(index: number): void {
-    this.customerList.splice(index, 1);
-    console.log('Remove Customer List');
-  }
 }
