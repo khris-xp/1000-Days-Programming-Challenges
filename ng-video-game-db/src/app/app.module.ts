@@ -13,20 +13,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { HomeComponent } from './component/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchBarComponent],
+  declarations: [AppComponent, SearchBarComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
     GaugeModule.forRoot(),
-    MatTabsModule,
-    MatIconModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatTabsModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
