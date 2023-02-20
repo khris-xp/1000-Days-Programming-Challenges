@@ -9,6 +9,8 @@ export class AppComponent {
   title: string = 'angular-fundamental';
   activate: boolean = false;
   appCounter: number = 20;
+  value1: string = 'Value 1';
+  value2: string = 'Value 2';
 
   // Array
   customerList: Array<string> = ['Customer 1', 'Customer 2', 'Customer 3'];

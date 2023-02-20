@@ -8,6 +8,8 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
 import { MaxMinLabelComponent } from './max-min-label/max-min-label.component';
 import { SquareFlexComponent } from './square-flex/square-flex.component';
 import { TestRequestModule } from './test-request/test-request.module';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { TestRequestModule } from './test-request/test-request.module';
     AppRoutingModule,
     HttpClientModule,
     TestRequestModule,
+    InputTextModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
