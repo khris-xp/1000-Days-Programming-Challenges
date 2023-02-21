@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { HomeComponent } from './component/home/home.component';
 
+import { HttpErrorsInterceptor } from './interceptor/http-errors.interceptor';
+import { HttpHeadersInterceptor } from './interceptor/http-headers.interceptor';
+
 @NgModule({
   declarations: [AppComponent, SearchBarComponent, HomeComponent],
   imports: [
@@ -29,7 +33,18 @@ import { HomeComponent } from './component/home/home.component';
     MatTabsModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpHeadersInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorsInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
