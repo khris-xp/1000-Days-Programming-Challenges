@@ -14,23 +14,28 @@
 </div>
 
 <div class="games">
-  <div class="game">
-    <div class="game-thumb-container">
-      <img
-        src="https://c4.wallpaperflare.com/wallpaper/262/188/865/new-grand-theft-auto-v-grand-theft-auto-5-game-wallpaper-preview.jpg"
-        alt="thumbnail"
-        class="game-thumbnail"
-      />
-    </div>
-    <div class="game-description">
-      <p class="game-name">Name</p>
-      <div class="game-platforms">
+  <ng-container *ngFor="let game of games">
+    <div class="game">
+      <div class="game-thumb-container">
         <img
-          src="https://www.logo.wine/a/logo/PlayStation/PlayStation-Icon-White-Dark-Background-Logo.wine.svg"
-          alt="slug"
-          class="game-platform"
+          *ngIf="game.background_image"
+          src="{{ game.background_image }}"
+          alt="thumbnail"
+          class="game-thumbnail"
         />
+        <p *ngIf="!game.background_image">No Image</p>
+      </div>
+      <div class="game-description">
+        <p class="game-name">{{ game.name }}</p>
+        <div class="game-platforms">
+          <img
+            *ngFor="let gamePlatform of game.parent_platforms"
+            src="assets/images/platforms/{{ gamePlatform.platform.slug }}.svg"
+            alt="{{ gamePlatform.platform.slug }}"
+            class="game-platform"
+          />
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>
