@@ -43,8 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   openGameDetails(id: string): void {
-    console.log(`PATH : details/${id}`);
-    // this.router.navigate(['details', id]);
+    this.router.navigate(['details', id]);
   }
 
   ngOnDestroy(): void {

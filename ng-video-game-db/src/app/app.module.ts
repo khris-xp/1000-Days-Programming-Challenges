@@ -18,9 +18,10 @@ import { HomeComponent } from './component/home/home.component';
 
 import { HttpErrorsInterceptor } from './interceptor/http-errors.interceptor';
 import { HttpHeadersInterceptor } from './interceptor/http-headers.interceptor';
+import { DetailComponent } from './component/detail/detail.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchBarComponent, HomeComponent],
+  declarations: [AppComponent, SearchBarComponent, HomeComponent, DetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,33 @@
+<div class="details">
+  <div class="game-banner">
+    <img
+      class="game-banner-img"
+      src="https://cdn1.epicgames.com/0584d2013f0149a791e7b9bad0eec102/offer/GTAV_EGS_Artwork_2560x1440_Landscaped%20Store-2560x1440-79155f950f32c9790073feaccae570fb.jpg"
+      alt="background-img"
+    />
+  </div>
+  <div class="game-content">
+    <div class="details-wrapper">
+      <div class="game-header">
+        <h1 class="game-header-title">Game Name</h1>
+        <h2 class="game-header-release-date">Release: 1.2.2022</h2>
+        <p class="game-header-genres">
+          <span>RPG</span>
+        </p>
+        <div class="game-gauge">
+          <mwl-gauge
+            class="two"
+            [max]="100"
+            [dialStartAngle]="180"
+            [dialEndAngle]="0"
+            [value]="gameRating"
+            [animated]="animatedStatus"
+            [animationDuration]="2"
+            [color]="getColor"
+          ></mwl-gauge>
+          <a class="game-gauge-label" target="_blank" href="">Metacritic</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
