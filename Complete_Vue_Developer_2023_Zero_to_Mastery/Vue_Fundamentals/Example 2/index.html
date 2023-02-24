@@ -15,7 +15,15 @@
         <option value="text-black">Black</option>
         <option value="text-orange">Orange</option>
       </select>
-      <div class="circle" :class="[selectedClass, circle_classes]">Hi!</div>
+
+      <input type="number" v-model="size" />
+      <div
+        class="circle"
+        :class="[selectedClass, circle_classes]"
+        :style="[style_classes, transform_classes]"
+      >
+        Hi!
+      </div>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
