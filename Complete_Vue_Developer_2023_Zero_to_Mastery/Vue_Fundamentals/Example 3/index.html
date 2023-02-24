@@ -10,18 +10,20 @@
   <body>
     <div id="app">
       <p v-if="mode == 1">V-If Directive</p>
-      <!-- <p v-else-if="mode == 2">V-If-else Directive</p> -->
       <template v-else-if="mode ==2 ">
         <p>Bonus Content</p>
         <p>V-If-else Directive</p>
       </template>
       <p v-else>V-else Directive</p>
+      <i v-show="mode == 1">V-Show</i>
 
-      <select v-model="mode">
-        <option value="1">V-If</option>
-        <option value="2">V-If-Else</option>
-        <option value="3">V-Else</option>
-      </select>
+      <div>
+        <select v-model="mode">
+          <option value="1">V-If</option>
+          <option value="2">V-If-Else</option>
+          <option value="3">V-Else</option>
+        </select>
+      </div>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
