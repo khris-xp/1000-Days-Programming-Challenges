@@ -11,22 +11,25 @@ const vm = Vue.createApp({
     };
   },
   methods: {
-    fullName() {
-      return `${this.firstName} ${
-        this.middleName
-      } ${this.lastName.toUpperCase()}`;
-    },
     increment() {
       this.age++;
     },
     updateLastName(msg, event) {
       this.lastName = event.target.value;
-      console.log(msg);
+      // console.log(msg);
       console.log(this.lastName);
     },
     updateMiddleName(event) {
       this.middleName = event.target.value;
       // console.log(this.middleName);
+    },
+  },
+  computed: {
+    fullName() {
+      console.log('Fullname Method');
+      return `${this.firstName} ${
+        this.middleName
+      } ${this.lastName.toUpperCase()}`;
     },
   },
 }).mount('#app');
